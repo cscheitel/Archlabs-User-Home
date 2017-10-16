@@ -1,0 +1,27 @@
+# launch compton
+al-compositor --start &
+
+$HOME/.config/setup &
+
+# restore wallpaper
+nitrogen --restore &
+
+# panel
+al-tint2-session &
+sleep 1; launch-polybar &
+
+# Openbox autostart
+ob-autostart -d &
+
+## GNOME PolicyKit authentication
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Required for xfce setting to work
+xfsettingsd &
+
+# Launch conky if session exists
+sleep 2; al-conky-session &
+
+xdg-user-dirs-gtk-update &
+
+panel-switch &

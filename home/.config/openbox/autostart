@@ -24,5 +24,4 @@ sleep 2; al-conky-session &
 
 xdg-user-dirs-gtk-update &
 
-#termite --exec=al-hello &
-al-panel-chooser &
+termite --exec=al-hello &

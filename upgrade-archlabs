@@ -100,9 +100,9 @@ rm -rf "$HOME"/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany
 sudo rm -rf /etc/skel/*
 
 # Copy configs to /etc/skel/  &  $HOME
-sudo cp -rf "$PWD"/home/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+sudo cp -rf "$PWD"/home/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
 sudo cp -rf "$PWD"/etc /
-cp -rf /etc/skel/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME"/
+cp -rf /etc/skel/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME"/
 
 }
 

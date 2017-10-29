@@ -6,7 +6,8 @@
 # Written by Nathaniel Maia <natemaia10@gmail.com>
 #
 
-REPO='[archlabs_repo]
+REPO='
+[archlabs_repo]
 Server = https://archlabs.github.io/archlabs_repo/$arch
 Server = https://downloads.sourceforge.net/project/archlabs-repo/archlabs_repo/$arch'
 
@@ -39,6 +40,9 @@ setupKeyring() {
 
       # add $REPO to pacman.conf
       if ! grep "archlabs_repo" /etc/pacman.conf; then
+        echo "${REPO}" | sudo tee -a /etc/pacman.conf
+      else   ## if entries exist just remove them
+        sudo sed -i '/archlabs_repo/d'
         echo "${REPO}" | sudo tee -a /etc/pacman.conf
       fi
 

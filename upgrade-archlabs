@@ -14,8 +14,7 @@ KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
       '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
       '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
 DIR="$HOME/.config"
-SCRIPT_PATH="`dirname \"$0\"`"
-SCRIPT_PATH="`( cd \"$SCRIPT_PATH\" && pwd )`"
+SCRIPT_PATH=$(pwd)
 
 
 
@@ -44,7 +43,8 @@ setupKeyring() {
       fi
 
       # finish
-      POPULATED=$(sudo pacman-key --populate archlabs)
+      sudo pacman-key --populate archlabs
+      POPULATED="Done"
 
     done
 
@@ -58,14 +58,12 @@ backupConfigs() {
     unset BACKEDUP
     while ! [ $BACKEDUP ]; do
 
-      cd "$HOME/Downloads/"
-
       clear; echo "############################################################################################
 ########   Backing up configs to /home/$USER/Downloads/$USER-config-backup.tar.gz  #########
 ############################################################################################"
 
       # Do the archive
-      tar czvf $USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
+      tar czvf $HOME/Downloads/$USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
 
       # set BACKEDUP for setupConfigs check
       BACKEDUP="Done"
@@ -79,29 +77,16 @@ backupConfigs() {
 
 setupConfigs() {
 
-    # call backupConfigs before we continue
-    backupConfigs
-
-    if [[ $BACKEDUP == "Done" ]]; then
-
-      # get rid of old leftover configs/scripts
-      rm -rf $DIR/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
-      sudo rm -rf /etc/skel/*
-      clear; echo "############################################################################################
+    # get rid of old leftover configs/scripts
+    rm -rf $HOME/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
+    sudo rm -rf /etc/skel/*
+    clear; echo "############################################################################################
 ########                           Setting up new configs                          #########
 ############################################################################################"
-      # Copy configs to /etc/skel/  &  $HOME
-      cd "$SCRIPT_PATH/"
-      cp -r home/* $HOME/
-      sudo cp -r home/* /etc/skel/
-      sudo cp -r etc/* /etc/
-
-    else
-      echo "[WARNING]: Configs were not backed up... Exiting"   # error out if no backup was made
-      exit 1
-
-    fi
-
+    # Copy configs to /etc/skel/  &  $HOME
+    cp -rf "$PWD/home/"{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME/"
+    sudo cp -rf "$PWD/home/"{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+    sudo cp -rf "$PWD/etc" /
 }
 
 
@@ -109,10 +94,15 @@ setupConfigs() {
 # first setupKeyring
 setupKeyring
 
-# then setupConfigs, it will call backupConfigs
+# call backupConfigs before we continue
+backupConfigs
+
+# then setupConfigs
 setupConfigs
 
-
+# finish up by setting and reloading everything
+$HOME/.config/setup
+$HOME/.config/polybar/scripts/launch-polybar --reload > /dev/null 2>&1
 
 clear; echo "############################################################################################
 ########                       Setup Successfully Completed                        #########

@@ -67,8 +67,9 @@ backupConfigs() {
 ############################################################################################"
 
       # Do the archive
-      tar czvf $HOME/Downloads/$USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
-
+      if ! [ -e "$HOME/Downloads/$USER-config-backup.tar.gz" ]; then
+        tar czvf $HOME/Downloads/$USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
+      fi
       # set BACKEDUP for setupConfigs check
       BACKEDUP="Done"
 

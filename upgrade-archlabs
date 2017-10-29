@@ -32,7 +32,7 @@ setupKeyring() {
       sudo pacman-key --populate archlinux
 
       for key in ${KEYS[@]}; do
-        if ! sudo pacman-key --list-keys | grep $key
+        if ! sudo pacman-key --list-keys | grep $key; then
           gpg --receive-keys $key
           sudo pacman-key -r $key
         fi

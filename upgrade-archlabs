@@ -42,7 +42,7 @@ setupKeyring() {
       if ! grep "archlabs_repo" /etc/pacman.conf; then
         echo "${REPO}" | sudo tee -a /etc/pacman.conf
       else   ## if entries exist just remove them
-        sudo sed -i '/archlabs_repo/d'
+        sudo sed -i '/archlabs_repo/d' /etc/pacman.conf
         echo "${REPO}" | sudo tee -a /etc/pacman.conf
       fi
 

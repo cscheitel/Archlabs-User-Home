@@ -16,41 +16,52 @@ KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
       '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
 DIR="$HOME/.config"
 SCRIPT_PATH=$(pwd)
+yes="y"
+no="n"
+cur_wm=$(wmctrl -m | grep Name | cut -d " " -f2)
+
+
+
+# Loop until network connection is solid
+while ! [[ $net >/dev/null ]]; do
+  net=$(ping -c1 8.8.8.8 2>&1)
+  echo -e "Please Connect to a Network Before Continuing"
+  clear; sleep 1
+done
 
 
 
 setupKeyring() {
 
-    # import each key and populate the keyring
-    unset POPULATED
-    while ! [ $POPULATED ]; do
-
-      clear; echo "############################################################################################
+clear; echo "############################################################################################
 ########             Setting up keyring & Adding repo to pacman.conf               #########
 ############################################################################################"
-      sudo pacman-key --init
-      sudo pacman-key --populate archlinux
+sleep 2
 
-      for key in ${KEYS[@]}; do
-        if ! sudo pacman-key --list-keys | grep $key; then
-          gpg --receive-keys $key
-          sudo pacman-key -r $key
-        fi
-      done
+# import each key and populate the keyring
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+for key in "${KEYS[@]}"; do
+  if ! sudo pacman-key --list-keys | grep $key; then
+    gpg --receive-keys $key
+    sudo pacman-key -r $key
+  fi
+done
 
-      # add $REPO to pacman.conf
-      if ! grep "archlabs_repo" /etc/pacman.conf; then
-        echo "${REPO}" | sudo tee -a /etc/pacman.conf
-      else   ## if entries exist just remove them
-        sudo sed -i '/archlabs_repo/d' /etc/pacman.conf
-        echo "${REPO}" | sudo tee -a /etc/pacman.conf
-      fi
 
-      # finish
-      sudo pacman-key --populate archlabs
-      POPULATED="Done"
+# add $REPO to pacman.conf
+if ! grep "archlabs_repo" /etc/pacman.conf; then
+  echo "$REPO" | sudo tee -a /etc/pacman.conf
 
-    done
+else
+  sudo sed -i '/archlabs_repo/d' /etc/pacman.conf
+  echo "$REPO" | sudo tee -a /etc/pacman.conf
+
+fi
+
+
+# finish populating the keyrings
+sudo pacman-key --populate archlabs
 
 }
 
@@ -58,22 +69,18 @@ setupKeyring() {
 
 backupConfigs() {
 
-    # Backup configs to $HOME/Downloads/
-    unset BACKEDUP
-    while ! [ $BACKEDUP ]; do
-
-      clear; echo "############################################################################################
+clear
+echo "############################################################################################
 ########   Backing up configs to /home/$USER/Downloads/$USER-config-backup.tar.gz  #########
 ############################################################################################"
 
-      # Do the archive
-      if ! [ -e "$HOME/Downloads/$USER-config-backup.tar.gz" ]; then
-        tar czvf $HOME/Downloads/$USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
-      fi
-      # set BACKEDUP for setupConfigs check
-      BACKEDUP="Done"
-
-    done
+# Backup configs to $HOME/Downloads/ if backup doesn't exist already
+if ! [ -e "$HOME/Downloads/$USER-config-backup.tar.gz" ]; then
+  tar czvf "$HOME/Downloads/$USER-config-backup.tar.gz" "$HOME"/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
+else
+  echo "[WARNING]  Backup already exists... Not overwriting"
+  sleep 2
+fi
 
 }
 
@@ -82,34 +89,67 @@ backupConfigs() {
 
 setupConfigs() {
 
-    # get rid of old leftover configs/scripts
-    rm -rf $HOME/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
-    sudo rm -rf /etc/skel/*
-    clear; echo "############################################################################################
+clear
+echo "############################################################################################
 ########                           Setting up new configs                          #########
 ############################################################################################"
-    # Copy configs to /etc/skel/  &  $HOME
-    cp -rf "$PWD/home/"{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME/"
-    sudo cp -rf "$PWD/home/"{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
-    sudo cp -rf "$PWD/etc" /
+sleep 2
+
+# get rid of old leftover configs/scripts
+rm -rf "$HOME"/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
+sudo rm -rf /etc/skel/*
+
+# Copy configs to /etc/skel/  &  $HOME
+sudo cp -rf "$PWD"/home/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+sudo cp -rf "$PWD"/etc /
+cp -rf /etc/skel/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME"/
+
 }
+
 
 
 
 # first setupKeyring
 setupKeyring
 
-# call backupConfigs before we continue
-backupConfigs
+# ask to setup configs
+clear
+printf "\nThis step will get the latest configs for polybar, tint2, openbox, i3, etc.
+\n\nYour existing configs will be backed up to an archive located at:
+\n\t$HOME/Downloads/$USER-config-backup.tar.gz\n\n\n\nDo you want to continue?  [y/N]:"
+read -r answer
 
-# then setupConfigs
-setupConfigs
+if [ "${answer,,}" = "${yes,,}" ]; then
 
-# finish up by setting and reloading everything
-$HOME/.config/setup
-$HOME/.config/polybar/scripts/launch-polybar --reload > /dev/null 2>&1
+  # backup configs before continuing
+  backupConfigs
 
-clear; echo "############################################################################################
+  # setupConfigs only if a backup was made
+  if [ -e "$HOME/Downloads/$USER-config-backup.tar.gz" ]; then
+    setupConfigs
+  fi
+
+  # finish up by running setup then reloading everything
+  $HOME/.config/setup
+  if [[ $cur_wm == i3 ]]; then
+    i3-msg restart
+  else
+    $HOME/.config/polybar/scripts/launch-polybar --reload > /dev/null 2>&1
+  fi
+
+
+else
+
+  sudo rm -rf /etc/skel/*
+  sudo cp -rf "$PWD"/home/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+  sudo cp -rf "$PWD"/etc /
+
+fi
+
+
+
+clear
+echo "############################################################################################
 ########                       Setup Successfully Completed                        #########
 ############################################################################################"
 

@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+
+#
+# A script to upgrade existing installations of ArchLabs
+#
+# Written by Nathaniel Maia <natemaia10@gmail.com>
+#
+
+REPO='[archlabs_repo]
+Server = https://archlabs.github.io/archlabs_repo/$arch
+Server = https://downloads.sourceforge.net/project/archlabs-repo/archlabs_repo/$arch'
+
+KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
+      '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
+      '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
+DIR="$HOME/.config"
+SCRIPT_PATH="`dirname \"$0\"`"
+SCRIPT_PATH="`( cd \"$SCRIPT_PATH\" && pwd )`"
+
+
+
+setupKeyring() {
+
+    # import each key and populate the keyring
+    unset POPULATED
+    while ! [ $POPULATED ]; do
+
+      clear; echo "############################################################################################
+########             Setting up keyring & Adding repo to pacman.conf               #########
+############################################################################################"
+      sudo pacman-key --init
+      sudo pacman-key --populate archlinux
+
+      for key in ${KEYS[@]}; do
+        if ! sudo pacman-key --list-keys | grep $key
+          gpg --receive-keys $key
+          sudo pacman-key -r $key
+        fi
+      done
+
+      # add $REPO to pacman.conf
+      if ! grep "archlabs_repo" /etc/pacman.conf; then
+        echo "${REPO}" | sudo tee -a /etc/pacman.conf
+      fi
+
+      # finish
+      POPULATED=$(sudo pacman-key --populate archlabs)
+
+    done
+
+}
+
+
+
+backupConfigs() {
+
+    # Backup configs to $HOME/Downloads/
+    unset BACKEDUP
+    while ! [ $BACKEDUP ]; do
+
+      cd "$HOME/Downloads/"
+
+      clear; echo "############################################################################################
+########   Backing up configs to /home/$USER/Downloads/$USER-config-backup.tar.gz  #########
+############################################################################################"
+
+      # Do the archive
+      tar czvf $USER-config-backup.tar.gz $HOME/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
+
+      # set BACKEDUP for setupConfigs check
+      BACKEDUP="Done"
+
+    done
+
+}
+
+
+
+
+setupConfigs() {
+
+    # call backupConfigs before we continue
+    backupConfigs
+
+    if [[ $BACKEDUP == "Done" ]]; then
+
+      # get rid of old leftover configs/scripts
+      rm -rf $DIR/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
+      sudo rm -rf /etc/skel/*
+      clear; echo "############################################################################################
+########                           Setting up new configs                          #########
+############################################################################################"
+      # Copy configs to /etc/skel/  &  $HOME
+      cd "$SCRIPT_PATH/"
+      cp -r home/* $HOME/
+      sudo cp -r home/* /etc/skel/
+      sudo cp -r etc/* /etc/
+
+    else
+      echo "[WARNING]: Configs were not backed up... Exiting"   # error out if no backup was made
+      exit 1
+
+    fi
+
+}
+
+
+
+# first setupKeyring
+setupKeyring
+
+# then setupConfigs, it will call backupConfigs
+setupConfigs
+
+
+
+clear; echo "############################################################################################
+########                       Setup Successfully Completed                        #########
+############################################################################################"
+
+
+exit 0

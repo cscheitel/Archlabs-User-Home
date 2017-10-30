@@ -61,7 +61,7 @@ fi
 
 
 # finish populating the keyrings
-sudo pacman -S archlabs-keyring
+sudo pacman -S archlabs-keyring --needed --noconfirm
 sudo pacman-key --populate archlabs
 
 }

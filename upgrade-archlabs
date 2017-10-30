@@ -14,8 +14,8 @@ Server = https://downloads.sourceforge.net/project/archlabs-repo/archlabs_repo/$
 KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
       '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
       '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
-DIR="$HOME/.config"
-SCRIPT_PATH=$(pwd)
+
+
 yes="y"
 no="n"
 cur_wm=$(wmctrl -m | grep Name | cut -d " " -f2)

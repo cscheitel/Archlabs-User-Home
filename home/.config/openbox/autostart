@@ -1,6 +1,8 @@
 # launch compton
 al-compositor --start &
 
+$HOME/.config/setup &
+
 # restore wallpaper
 nitrogen --restore &
 

@@ -10,7 +10,7 @@ REPO='
 [archlabs_repo]
 Server = https://archlabs.github.io/archlabs_repo/$arch
 Server = https://downloads.sourceforge.net/project/archlabs-repo/archlabs_repo/$arch'
-
+FILES="{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc}"
 KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
       '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
       '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
@@ -102,26 +102,26 @@ sleep 2
 sudo pacman -S clutter-gtk libgee gdk-pixbuf2 pango python-yaml --needed --noconfirm
 
 # cleanup ~/.config
-rm -rf "$HOME"/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
+rm -rf "$HOME"/.config/{bspwm,dunst,i3,obmenu-generator,conky,geany,neofetch,polybar,termite,xfce4,openbox}
 
 # clean /etc/skel
 sudo rm -rf /etc/skel/*
 
 # Copy configs to /etc/skel
-sudo cp -rf "$PWD"/home/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+sudo cp -rf "$PWD"/home/$FILES /etc/skel/
 
 # copy /etc (things like lightdm.conf, oblogout.conf, lsb-release)
 sudo cp -rf "$PWD"/etc /
 
 # copy /etc/skel to $HOME
-cp -rf /etc/skel/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME"/
+cp -rf /etc/skel/$FILES "$HOME"/
 
 
 }
 
 
 
-# first setupKeyring
+# first setup Keyring
 setupKeyring
 
 # ask to setup configs
@@ -154,7 +154,7 @@ else # only setup skel if answered no
 
   # remove old configs and copy new
   sudo rm -rf /etc/skel/*
-  sudo cp -rf "$PWD"/home/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+  sudo cp -rf "$PWD"/home/$FILES /etc/skel/
   sudo cp -rf "$PWD"/etc /
 
 fi

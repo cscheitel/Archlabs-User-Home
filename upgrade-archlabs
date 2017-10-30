@@ -14,15 +14,13 @@ Server = https://downloads.sourceforge.net/project/archlabs-repo/archlabs_repo/$
 KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
       '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
       '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
-
-
+curWM=$(wmctrl -m | grep Name | cut -d " " -f2)
 yes="y"
 no="n"
-cur_wm=$(wmctrl -m | grep Name | cut -d " " -f2)
 
 
 
-# Loop until network connection is solid
+# Loop until network connected
 while ! [[ $net >/dev/null ]]; do
   net=$(ping -c1 8.8.8.8 2>&1)
   echo -e "Please Connect to a Network Before Continuing"
@@ -33,7 +31,8 @@ done
 
 setupKeyring() {
 
-clear; echo "############################################################################################
+clear
+echo "############################################################################################
 ########             Setting up keyring & Adding repo to pacman.conf               #########
 ############################################################################################"
 sleep 2
@@ -53,16 +52,17 @@ done
 if ! grep "archlabs_repo" /etc/pacman.conf; then
   echo "$REPO" | sudo tee -a /etc/pacman.conf
 
-else
+else  # if entries exist remove them
   sudo sed -i '/archlabs_repo/d' /etc/pacman.conf
   echo "$REPO" | sudo tee -a /etc/pacman.conf
 
 fi
 
 
-# finish populating the keyrings
+# finish populating the keyring
 sudo pacman -S archlabs-keyring --needed --noconfirm
 sudo pacman-key --populate archlabs
+
 
 }
 
@@ -78,13 +78,15 @@ echo "##########################################################################
 # Backup configs to $HOME/Downloads/ if backup doesn't exist already
 if ! [ -e "$HOME/Downloads/$USER-config-backup.tar.gz" ]; then
   tar czvf "$HOME/Downloads/$USER-config-backup.tar.gz" "$HOME"/.{config,Xresources,zshrc,bashrc,icons,xsession,xsessionrc,xinitrc} > /dev/null 2>&1
+
 else
   echo "[WARNING]  Backup already exists... Not overwriting"
   sleep 2
+
 fi
 
-}
 
+}
 
 
 
@@ -96,17 +98,23 @@ echo "##########################################################################
 ############################################################################################"
 sleep 2
 
-# get rid of old leftover configs/scripts
+# cleanup ~/.config
 rm -rf "$HOME"/.config/{bspwm,dunst,i3,obmenu-generator,qt5ct,Thunar,conky,geany,neofetch,polybar,termite,xfce4,openbox}
+
+# clean /etc/skel
 sudo rm -rf /etc/skel/*
 
-# Copy configs to /etc/skel/  &  $HOME
+# Copy configs to /etc/skel
 sudo cp -rf "$PWD"/home/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+
+# copy /etc (things like lightdm.conf, oblogout.conf, lsb-release)
 sudo cp -rf "$PWD"/etc /
+
+# copy /etc/skel to $HOME
 cp -rf /etc/skel/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} "$HOME"/
 
-}
 
+}
 
 
 
@@ -132,17 +140,18 @@ if [ "${answer,,}" = "${yes,,}" ]; then
 
   # finish up by running setup then reloading everything
   $HOME/.config/setup
-  if [[ $cur_wm == i3 ]]; then
+  if [[ $curWM == i3 ]]; then
     i3-msg restart
   else
     $HOME/.config/polybar/scripts/launch-polybar --reload > /dev/null 2>&1
   fi
 
 
-else
+else # only setup skel if answered no
 
+  # remove old configs and copy new
   sudo rm -rf /etc/skel/*
-  sudo cp -rf "$PWD"/home/{bin,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
+  sudo cp -rf "$PWD"/home/{bin,.ArchLabs-homepage,.config,.themes,.gorice,.Xresources,.Xresources.template,.mozilla,.zshrc,.bashrc,.icons,.local,.xsession,.xsessionrc,.xinitrc} /etc/skel/
   sudo cp -rf "$PWD"/etc /
 
 fi

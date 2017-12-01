@@ -17,12 +17,12 @@ inherit = bar/master
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
 monitor =
 
-modules-left   = config window_switch workspaces menu
+modules-left   = jgmenu config window_switch workspaces menu
 modules-center = clock
 modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
-; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
+; redshift github jgmenu filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
 ; pkg keyboard memory temperature coreuse network clock volume i3-workspaces workspaces window_switch
 
 
@@ -49,7 +49,7 @@ modules-center = clock
 modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
-; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
+; redshift github filesystem jgmenu mpd wired-network wireless-network battery menu volume-bar bspwm
 ; pkg keyboard memory temperature coreuse network clock volume i3-workspaces workspaces window_switch
 
 
@@ -76,7 +76,7 @@ modules-center = clock
 modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
-; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
+; redshift github filesystem mpd jgmenu wired-network wireless-network battery menu volume-bar bspwm
 ; pkg keyboard memory temperature coreuse network clock volume i3-workspaces workspaces window_switch
 
 

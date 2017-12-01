@@ -228,7 +228,7 @@
     </keybind>
     <keybind key="A-Tab">
       <action name="NextWindow">
-				<allDesktops>yes</allDesktops>
+		<allDesktops>yes</allDesktops>
         <raise>yes</raise>
         <finalactions>
           <action name="Focus"/>
@@ -325,7 +325,7 @@
     </keybind>
     <keybind key="A-F1">
       <action name="Execute">
-        <command>~/bin/rofi-gorice</command>
+        <command>rofi-gorice</command>
       </action>
     </keybind>
     <keybind key="W-f">
@@ -363,6 +363,9 @@
         <command>exit-openbox</command>
       </action>
     </keybind>
+    <keybind key="W-S-x">
+      <action name="Exit"/>
+    </keybind>
     <keybind key="W-Escape">
       <action name="Execute">
         <command>xkill</command>
@@ -389,9 +392,10 @@
       </action>
     </keybind>
     <keybind key="C-S-BackSpace">
-      <action name="Execute">
-        <command>openbox --reconfigure</command>
-      </action>
+      <action name="Restart"/>
+    </keybind>
+    <keybind key="C-S-Enter">
+      <action name="Reconfigure"/>
     </keybind>
     <keybind key="A-F4">
       <action name="Close"/>
@@ -581,6 +585,13 @@
       </mousebind>
     </context>
     <context name="Titlebar">
+      <mousebind action="Press" button="A-Left">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Left">
+        <action name="Move"/>
+      </mousebind>
       <mousebind action="Press" button="Left">
         <action name="Focus"/>
         <action name="Raise"/>
@@ -703,6 +714,13 @@
       </mousebind>
     </context>
     <context name="Client">
+      <mousebind action="Press" button="A-Left">
+        <action name="Focus"/>
+        <action name="Raise"/>
+      </mousebind>
+      <mousebind action="Drag" button="A-Left">
+        <action name="Move"/>
+      </mousebind>
       <mousebind action="Press" button="Left">
         <action name="Focus"/>
         <action name="Raise"/>
@@ -861,7 +879,7 @@
       <desktop>1</desktop>
       <focus>yes</focus>
     </application>
-    <application class="rythmbox">
+    <application class="rhythmbox">
       <desktop>1</desktop>
       <focus>yes</focus>
     </application>

@@ -17,9 +17,9 @@ inherit = bar/master
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
 monitor =
 
-modules-left = config window_switch workspaces menu
+modules-left   = config window_switch workspaces menu
 modules-center = clock
-modules-right = pkg memory temperature coreuse network volume
+modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
 ; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
@@ -44,9 +44,9 @@ inherit = bar/master
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
 monitor =
 
-modules-left = config i3-workspaces menu
+modules-left   = config i3-workspaces menu
 modules-center = clock
-modules-right = pkg memory temperature coreuse network volume
+modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
 ; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm
@@ -71,9 +71,9 @@ inherit = bar/master
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
 monitor =
 
-modules-left = bspwm menu
+modules-left   = bspwm menu
 modules-center = clock
-modules-right = pkg memory temperature coreuse network volume
+modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
 ; redshift github filesystem mpd wired-network wireless-network battery menu volume-bar bspwm

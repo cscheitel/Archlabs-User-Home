@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+MATCH=$(pgrep --full 'termite --title=work-term')
+
+if ! $MATCH; then
+    pkill --full 'termite --title=work-term'
+
+else
+    termite --title=work-term --class=work-term &
+
+fi
+
+exit 0

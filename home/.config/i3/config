@@ -11,91 +11,154 @@
 ##        Print = PRINT key            ##
 ##          Tab = TAB key              ##
 #########################################
-####################################################################################################
-#################                          Style settings                          #################
-####################################################################################################
 
-# Window colors
-set $border-color     #2b303b
-set $background-color #2b303b
-set $inactive-color   #65737e
-set $text-color       #8fa1b3
-set $urgent-color     #bf616a
-set $active-color     #b48ead
+# Xresources      var      value       fallback
+set_from_resource $bg      background  #19043C
+set_from_resource $fg      foreground  #F1F1F1
+set_from_resource $red     color1      #EE79A9
+set_from_resource $green   color2      #8C9440
+set_from_resource $yellow  color3      #DE935F
+set_from_resource $blue    color4      #05C6F1
+set_from_resource $purple  color5      #85678F
+set_from_resource $cyan    color6      #5E8D87
+set_from_resource $grey    color7      #969CD3
+set_from_resource $white   color15     #F1F1F1
+set_from_resource $black   color0      #19043C
 
-# class                  background     border         text           indicator
-client.focused           $border-color  $active-color  $text-color    $inactive-color
-client.unfocused         $border-color  $border-color  $text-color    $border-color
-client.focused_inactive  $border-color  $border-color  $text-color    $border-color
-client.urgent            $border-color  $urgent-color  $urgent-color  $border-color
+# class                  bg   bd     txt  ind
+client.focused           $bg  $blue  $fg  $blue
+client.unfocused         $bg  $bg    $fg  $bg
+client.focused_inactive  $bg  $bg    $fg  $bg
+client.urgent            $bg  $red   $fg  $red
+client.background        $bg
 
 # border
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 2
 
 # gaps
 gaps inner 12
 gaps outer 0
 
-####################################################################################################
-#################                          Define variables                        #################
-####################################################################################################
+# font
+font pango:Ubuntu Light 11
 
-#set Super or Alt key
+
+##
+#### Set
+##
+
+# $mod for Super or Alt
 set $mod Mod4
 #set $mod Mod1
 
-# vim directional keys
+# direction keys
 set $up l
 set $down k
 set $left j
 set $right semicolon
 
-####################################################################################################
-#################                   Define Workspaces and screens                  #################
-####################################################################################################
+set $WS1 "1:"
+set $WS2 "2:"
+set $WS3 "3:"
+set $WS4 "4:"
+set $WS5 "5:"
+set $WS6 "6:"
+set $WS7 "7:"
+set $WS8 "8:"
 
 # monitors
 set $firstMonitor HDMI1
 set $secondMonitor HDMI2
 
-# workspace assignment
-workspace 1 output $firstMonitor
-workspace 2 output $secondMonitor
-workspace 3 output $firstMonitor
-workspace 4 output $secondMonitor
-workspace 5 output $firstMonitor
-workspace 6 output $secondMonitor
-workspace 7 output $firstMonitor
-workspace 8 output $secondMonitor
-workspace 9 output $firstMonitor
-workspace 10 output $secondMonitor
+####################################################################################################
+#################                            Autostart                            ##################
+####################################################################################################
 
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+# run with reload
+exec_always --no-startup-id start-compton
+exec_always --no-startup-id launch-polybar
+exec_always --no-startup-id numlockx on
 
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1; workspace 1
-bindsym $mod+Shift+2 move container to workspace 2; workspace 2
-bindsym $mod+Shift+3 move container to workspace 3; workspace 3
-bindsym $mod+Shift+4 move container to workspace 4; workspace 4
-bindsym $mod+Shift+5 move container to workspace 5; workspace 5
-bindsym $mod+Shift+6 move container to workspace 6; workspace 6
-bindsym $mod+Shift+7 move container to workspace 7; workspace 7
-bindsym $mod+Shift+8 move container to workspace 8; workspace 8
-bindsym $mod+Shift+9 move container to workspace 9; workspace 9
-bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+# run once
+exec --no-startup-id xfsettingsd
+exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id al-conky-session
+exec --no-startup-id lxpolkit
 
 ####################################################################################################
-#################                          reload configs                          #################
+#################                          Bindings                               ##################
+####################################################################################################
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym Mod1+q kill
+
+# launchers
+bindsym Control+space exec --no-startup-id rofi-gorice
+bindsym Mod1+F1       exec --no-startup-id rofi-gorice
+
+# core
+bindsym $mod+e exec --no-startup-id al-open -edit
+bindsym $mod+t exec --no-startup-id exo-open --launch TerminalEmulator
+bindsym $mod+w exec --no-startup-id exo-open --launch WebBrowser
+bindsym $mod+f exec --no-startup-id exo-open --launch FileManager
+
+# logout
+bindsym $mod+x exec --no-startup-id rofi-logout
+
+# long command broken into multiple lines
+bindsym Print exec --no-startup-id "scrot '%S.png' \
+-e 'mv $f $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png \
+; gpicview $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png'"
+
+# audio
+bindsym XF86AudioPlay         exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext         exec --no-startup-id playerctl next
+bindsym XF86AudioPrev         exec --no-startup-id playerctl previous
+bindsym XF86AudioStop         exec --no-startup-id playerctl stop
+bindsym XF86AudioRaiseVolume  exec --no-startup-id pamixer -i 2
+bindsym XF86AudioLowerVolume  exec --no-startup-id pamixer -d 2
+bindsym XF86AudioMute         exec --no-startup-id pamixer -t
+bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+####################################################################################################
+#################                        Workspace Bindings                        #################
+####################################################################################################
+
+# workspace assignment
+workspace $WS1 output $firstMonitor
+workspace $WS2 output $secondMonitor
+workspace $WS3 output $firstMonitor
+workspace $WS4 output $secondMonitor
+workspace $WS5 output $firstMonitor
+workspace $WS6 output $secondMonitor
+workspace $WS7 output $firstMonitor
+workspace $WS8 output $secondMonitor
+
+# switch to workspace
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WS1; workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2; workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3; workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4; workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5; workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6; workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7; workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
+
+####################################################################################################
+#################                          Reload configs                          #################
 ####################################################################################################
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -104,115 +167,88 @@ bindsym $mod+Shift+r restart
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
-# kill focused window
-bindsym $mod+Shift+q kill
-
 ####################################################################################################
-################                       Container/window control                   ##################
+################                       Container/Window control                   ##################
 ####################################################################################################
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+# Scratchpad, Floating
+bindsym $mod+minus  move scratchpad
+bindsym $mod+plus   scratchpad show
+bindsym $mod+space  floating toggle
+floating_modifier   Mod1
 
 # change focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
 bindsym $mod+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
+bindsym $mod+p     focus parent
+bindsym $mod+c     focus child
 
 # move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$left  move left  10px
+bindsym $mod+Shift+$down  move down  10px
+bindsym $mod+Shift+$up    move up    10px
+bindsym $mod+Shift+$right move right 10px
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up    move up    10px
+bindsym $mod+Shift+Down  move down  10px
+bindsym $mod+Shift+Left  move left  10px
+bindsym $mod+Shift+Right move right 10px
 
-# resizing
-bindsym mod1+Left   resize shrink width 10 px or 1 ppt
-bindsym mod1+Down   resize grow height 10 px or 1 ppt
-bindsym mod1+Up     resize shrink height 10 px or 1 ppt
-bindsym mod1+Right  resize grow width 10 px or 1 ppt
+# Size
+bindsym Mod1+Up     resize shrink height 10 px or 1 ppt
+bindsym Mod1+Down   resize grow   height 10 px or 1 ppt
+bindsym Mod1+Left   resize shrink width  10 px or 1 ppt
+bindsym Mod1+Right  resize grow   width  10 px or 1 ppt
 
 # next/previous workspace
-bindsym Mod1+Tab workspace next
+bindsym Mod1+Tab       workspace next
 bindsym Mod1+Shift+Tab workspace prev
-bindsym $mod+Tab workspace back_and_forth
-
-#navigate workspaces next / previous
-bindsym Mod1+Ctrl+Right workspace next
-bindsym Mod1+Ctrl+Left workspace prev
 
 # switch to workspace with urgent window
 for_window [urgent=latest] focus
-
-# default tiling orientation
-default_orientation horizontal
 
 # container layout
 bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+h layout splith
-bindsym $mod+Shift+v layout splitv
-
-# switch between tiling / floating
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+h layout toggle split
+default_orientation horizontal
 
 ####################################################################################################
-#################               Autostart applications                            ##################
+#################                            Border & Gaps                         #################
 ####################################################################################################
 
-# scripts & settings
-exec_always --no-startup-id $HOME/.config/i3/scripts/compositor.sh
-exec_always --no-startup-id launch-polybar
-exec_always --no-startup-id skippy-xd --start-daemon --config $HOME/.config/skippy-xd/skippy-xd.rc
-exec_always --no-startup-id numlockx on
+new_window normal
+new_float normal
+hide_edge_borders both
+popup_during_fullscreen smart
+bindsym $mod+shift+b border toggle
 
-# run once at startup
-exec --no-startup-id xfsettingsd &
-exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id al-conky-session
-exec --no-startup-id /usr/bin/lxpolkit
+#changing border style
+bindsym $mod+n border normal
+bindsym $mod+y border 1pixel
+bindsym $mod+u border none
 
+set $mode_gaps Gap Size     +  |  -  
+bindsym $mod+Shift+g mode "$mode_gaps"
+mode "$mode_gaps" {
+  bindsym plus  gaps inner all plus 2
+  bindsym minus gaps inner all minus 2
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
 
-####################################################################################################
-#################                    application keyboard shortcuts               ##################
-####################################################################################################
-
-bindsym $mod+e exec --no-startup-id al-open -edit
-bindsym Control+space exec --no-startup-id rofi-apps
-bindsym mod1+F1 exec --no-startup-id $HOME/bin/rofi-gorice
-bindsym $mod+t exec --no-startup-id exo-open --launch TerminalEmulator
-bindsym $mod+w exec --no-startup-id exo-open --launch WebBrowser
-bindsym $mod+f exec --no-startup-id exo-open --launch FileManager
-
-# good example for long command being broken into multiple lines (i3 is fine with this using "\")
-bindsym Print exec --no-startup-id "scrot '%S.png' \
--e 'mv $f $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png \
-; gpicview $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png'"
 
 ####################################################################################################
 #################                        application settings                      #################
@@ -225,68 +261,7 @@ for_window [class="Termite|^Thunar|Geany|Firefox"] focus
 
 # Assign Applications to specific workspace
 # get class with xprop
-assign [class="Firefox"]                      → 1
-assign [class="Geany"]                        → 2
-assign [class="Thunar"]                       → 3
-assign [class="^Gimp"]                        → 4
-
-####################################################################################################
-#################                          audio settings                          #################
-####################################################################################################
-
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
-bindsym XF86AudioMute exec --no-startup-id pamixer -t
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
-
-####################################################################################################
-#################                          border control                          #################
-####################################################################################################
-
-hide_edge_borders both
-bindsym $mod+shift+b exec --no-startup-id i3-msg border toggle
-
-#changing border style
-bindsym $mod+n border normal
-bindsym $mod+y border 1pixel
-bindsym $mod+u border none
-
-new_window normal
-new_float normal
-popup_during_fullscreen smart
-
-
-####################################################################################################
-#################                           logout                                 #################
-####################################################################################################
-
-bindsym $mod+X mode "$mode_system"
-
-set $mode_system  Q ➤   W ➤   E ➤   R ➤ 
-mode "$mode_system" {
-    bindsym q exec --no-startup-id i3lock-fancy, mode "default"
-    bindsym w exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
-    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
-    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-####################################################################################################
-#################                          i3 gaps change                          #################
-####################################################################################################
-
-set $mode_gaps Gap Size     +  |  -  
-bindsym $mod+Shift+g mode "$mode_gaps"
-mode "$mode_gaps" {
-  bindsym plus  gaps inner all plus 2
-  bindsym minus gaps inner all minus 2
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-}
-
+assign [class="Firefox"]                      → $WS1
+assign [class="Geany"]                        → $WS2
+assign [class="Thunar"]                       → $WS3
+assign [class="^Gimp"]                        → $WS4

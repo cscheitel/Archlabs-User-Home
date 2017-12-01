@@ -4,19 +4,19 @@ super + w
 
 # terminal emulator
 super + t
-		exo-open --launch TerminalEmulator
+    exo-open --launch TerminalEmulator
 
 # file manager
 super + f
-		exo-open --launch FileManager
+    exo-open --launch FileManager
 
 # program launcher
 super + @space
-		rofi-apps
+    rofi-apps
 
 # program launcher
 alt + F1
-	  $HOME/bin/rofi-gorice
+    rofi-gorice
 
 # make sxhkd reload its configuration files:
 super + shift + r

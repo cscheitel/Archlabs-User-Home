@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+on=""
+off=""
+
+if [[ $1 == *toggle* ]]; then
+	if pgrep -x compton > /dev/null 2>&1; then
+		al-compositor --stop
+
+	else
+		al-compositor --start
+
+	fi
+
+	exit 0
+
+fi
+
+
+if pgrep -x compton > /dev/null 2>&1; then
+	echo "$on"
+
+else
+	echo "%{F#888888}$off"
+
+fi

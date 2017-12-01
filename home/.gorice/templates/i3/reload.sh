@@ -1,6 +1,5 @@
 al-compositor --restart
 pkill dunst
-nitrogen --restore
 xrdb ~/.Xresources
 launch-polybar --reload
 i3-msg restart

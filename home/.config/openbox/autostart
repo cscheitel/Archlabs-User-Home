@@ -6,9 +6,12 @@ $HOME/.config/setup &
 # restore wallpaper
 nitrogen --restore &
 
+# enable numlock
+numlockx on &
+
 # panel
 al-tint2-session &
-sleep 1; $HOME/.config/polybar/scripts/launch-polybar &
+sleep 1; ~/bin/launch-polybar &
 
 # Openbox autostart
 ob-autostart -d &

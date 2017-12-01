@@ -29,7 +29,3 @@ bar:
     bottom: "false"
     background: "#F6F6F6"
     font0: "DejaVu Sans Mono:size=10:antialias=false;2"
-
-
-wallpaper:
-    saved: "/usr/share/backgrounds/bright.jpg"

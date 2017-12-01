@@ -10,7 +10,7 @@
     word_wrap = yes
     ignore_newline = no
     geometry = "400x10-20+40"
-    shrink = no
+    shrink = yes
     transparency = 0
     idle_threshold = 0
     #monitor = 0
@@ -44,7 +44,7 @@
     timeout = 3
 
 [urgency_critical]
-    background = "{{index .Data.terminal_colors 7}}"
+    background = "{{.Data.terminal_background}}"
     foreground = "{{index .Data.terminal_colors 1}}"
     frame_color = "{{index .Data.terminal_colors 1}}"
     timeout = 5

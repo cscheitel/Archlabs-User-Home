@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+ANS=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -location 0 -yoffset -200 -font "xos4 Terminus 10" -eh 1 -line-padding 4 -padding 30 -no-config -lines 4 -color-enabled -color-window "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}" -color-normal "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}, {{index .Data.terminal_colors 4}}, {{.Data.terminal_background}}")
+
+if [[ "$ANS" == *lock ]]; then
+  i3lock-fancy
+elif [[ "$ANS" == *logout ]]; then
+  i3-msg exit
+elif [[ "$ANS" == *reboot ]]; then
+  systemctl reboot
+elif [[ "$ANS" == *shutdown ]]; then
+  systemctl poweroff
+fi

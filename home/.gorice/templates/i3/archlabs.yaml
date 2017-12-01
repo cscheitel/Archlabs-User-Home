@@ -18,7 +18,7 @@ border:
 
 
 gap:
-    inner: 15
+    inner: 10
     outer: 0
 
 
@@ -30,6 +30,3 @@ bar:
     background: "#2b303b"
     font0: "DejaVu Sans Mono:size=10:antialias=false;2"
 
-
-wallpaper:
-    saved: "/usr/share/backgrounds/archlabs/archlabs.png"

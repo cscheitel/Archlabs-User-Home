@@ -30,6 +30,3 @@ bar:
     background: "#e1101010"
     font0: "xos4 Terminus:size=12:antialias=false;2"
 
-
-wallpaper:
-    saved: "/usr/share/backgrounds/volcanic.jpg"

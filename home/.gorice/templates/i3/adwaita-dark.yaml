@@ -16,11 +16,9 @@ border:
     bottom: 0
     color: "#F1F1F1"
 
-
 gap:
     inner: 15
     outer: 0
-
 
 bar:
     height: 24
@@ -29,7 +27,3 @@ bar:
     bottom: "false"
     background: "#252E35"
     font0: "DejaVu Sans Mono:size=10:antialias=false;2"
-
-
-wallpaper:
-    saved: "/usr/share/backgrounds/leaves.jpg"

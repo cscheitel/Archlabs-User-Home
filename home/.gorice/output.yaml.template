@@ -21,5 +21,4 @@ configs:
         bar-bottom: "{{.Data.bar_bottom}}"
         bar-background: "{{.Data.bar_background}}"
         bar-font: "{{.Data.bar_font0}}"
-        wallpaper: "{{.Data.wallpaper_saved}}"
     {{end}}

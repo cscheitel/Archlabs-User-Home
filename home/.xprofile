@@ -1,7 +1,8 @@
 # .xprofile
 
-XDG_CONFIG_HOME="$HOME/.config"
+XDG_CONFIG_HOME=$HOME/.config
 export XDG_CONFIG_HOME
+export PATH=$HOME/bin:$PATH
 
 # include sbin in PATH
 if [ -d "/sbin" ] ; then
@@ -10,11 +11,6 @@ fi
 
 if [ -d "/usr/sbin" ] ; then
   PATH="/usr/sbin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-  PATH="$HOME/bin:$PATH"
 fi
 
 if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then

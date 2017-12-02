@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 if [[ $1 = "--toggle" ]] || [[ $1 = "-t" ]]; then
   if pgrep redshift > /dev/null 2>&1; then
     killall redshift

@@ -2,10 +2,10 @@
 
 
 import os
-import gi
-import yaml
 import struct
 import subprocess
+import yaml
+import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, Pango
 
@@ -58,11 +58,11 @@ class Selection(Gtk.EventBox):
         return None
 
     def selected(self, *args):
-        self.hbox.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.selected_colour))
+        # self.hbox.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.selected))
         return None
 
     def unselected(self, *args):
-        self.hbox.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
+        # self.hbox.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.selected))
         return None
 
 
@@ -110,15 +110,17 @@ def keypress(window, key):
 def main():
     configs = load_configs()
     window = Gtk.Window()
-    window.modify_font( Pango.FontDescription('Ubuntu 10') )
-    window.connect('leave-notify-event', Gtk.main_quit)
+
+    window.modify_font(Pango.FontDescription('xos4 Terminus 9'))
     window.set_property('type-hint', Gdk.WindowTypeHint.SPLASHSCREEN)
-    window.set_property('skip-taskbar-hint', True)
     window.set_decorated(False)
-    window.set_title('bar-dropdown')
-    window.set_border_width(0)
     window.set_resizable(False)
-    window.stick()
+
+    window.connect('leave-notify-event', Gtk.main_quit)
+    # window.set_property('skip-taskbar-hint', False)
+    # window.set_title('bar-dropdown')
+    # window.set_border_width(0)
+    # window.stick()
 
     window.connect('delete-event', Gtk.main_quit)
 
@@ -130,11 +132,10 @@ def main():
         box.pack_start(config, False, False, 0)
 
     scrolled.add(box)
-
     window.add(scrolled)
-    window.set_size_request(200, 300)
+    window.set_size_request(200, 420)
     window.show_all()
-    window.move(10, 27)
+    window.move(10, 35)
     window.connect('key-press-event', keypress)
     window.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
 

@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-
 if pgrep -x polybar >/dev/null; then
     pkill polybar
-
 else
     launch-polybar >/dev/null 2>&1
-
 fi
 

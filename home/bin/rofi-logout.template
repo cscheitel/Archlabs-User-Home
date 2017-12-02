@@ -1,11 +1,26 @@
 #!/usr/bin/env bash
 
-ANS=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -location 0 -yoffset -200 -font "xos4 Terminus 10" -eh 1 -line-padding 4 -padding 30 -no-config -lines 4 -color-enabled -color-window "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}" -color-normal "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}, {{index .Data.terminal_colors 4}}, {{.Data.terminal_background}}")
+CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
+
+ANS=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -location 0 -yoffset -200 -font "Ubuntu 11" -eh 1 -line-padding 4 -padding 30 -no-config -lines 4 -color-enabled -color-window "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}" -color-normal "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}, {{index .Data.terminal_colors 4}}, {{.Data.terminal_background}}")
 
 if [[ "$ANS" == *lock ]]; then
   i3lock-fancy
 elif [[ "$ANS" == *logout ]]; then
-  i3-msg exit
+    if [[ "$CUR_WM" == "i3" ]]; then
+        i3-msg exit
+    elif [[ "$CUR_WM" == "bspwm" ]]; then
+        for window_id in $(bspc query -W); do
+            bspc window $window_id -c
+        done
+        killall sxhkd
+        bspc quit
+    elif [[ "$CUR_WM" == "bspwm" ]]; then
+        openbox --exit
+    else
+        echo "Unknown WM... Exiting"
+        exit 1
+    fi
 elif [[ "$ANS" == *reboot ]]; then
   systemctl reboot
 elif [[ "$ANS" == *shutdown ]]; then

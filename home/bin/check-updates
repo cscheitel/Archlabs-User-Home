@@ -1,56 +1,36 @@
 #!/usr/bin/env bash
 
-
-# update checking script for polybar
-# written by Nathaniel Maia
-
 BAR_ICON=""
 ICON=/usr/share/icons/gnome/32x32/apps/system-software-update.png
 
-# Infinite loop
 while true; do
-
-    # initial check
     count=$(checkupdates | wc -l)
-
-    # notifications
     if hash notify-send >/dev/null 2>&1; then
         if [ $count -gt 50 ]; then
             notify-send -u critical -i $ICON \
                         "You really need to update soon!!" "$count New package updates"
-
         elif [ $count -gt 25 ]; then
             notify-send -u normal -i $ICON \
                         "You should update soon" "$count New package updates"
-
         elif [ $count -gt 5 ]; then
             notify-send -u low -i $ICON \
                         "$count New package updates"
-
         fi
     fi
 
-
-    # while greater than 0 check every 8s
     while [ "$count" -gt 0 ]; do
-
-        # update or updates
         if [ $count -eq 1 ]; then
             echo "$count Update"
         elif [ $count -gt 1 ]; then
             echo "$count Updates"
         fi
-
         sleep 8
         count=$(checkupdates | wc -l)
-
     done
 
-    # while no updates, check every 20 min
     while [ "$count" -eq 0 ]; do
         echo $BAR_ICON
         sleep 1200
         count=$(checkupdates | wc -l)
     done
-
 done

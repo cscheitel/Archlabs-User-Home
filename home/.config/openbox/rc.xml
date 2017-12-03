@@ -340,7 +340,7 @@
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>al-open -web</command>
+        <command>exo-open --launch WebBrowser</command>
       </action>
     </keybind>
     <keybind key="W-e">
@@ -378,7 +378,7 @@
     </keybind>
     <keybind key="C-space">
       <action name="Execute">
-        <command>rofi-apps</command>
+        <command>rofi-gorice</command>
       </action>
     </keybind>
     <keybind key="W-space">
@@ -388,7 +388,7 @@
     </keybind>
     <keybind key="W-S-r">
       <action name="Execute">
-        <command>launch-polybar --reload</command>
+        <command>start-polybar --reload</command>
       </action>
     </keybind>
     <keybind key="C-S-BackSpace">

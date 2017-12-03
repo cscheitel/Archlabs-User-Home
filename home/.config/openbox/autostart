@@ -11,7 +11,7 @@ numlockx on &
 
 # panel
 al-tint2-session &
-sleep 1; ~/bin/launch-polybar &
+sleep 1; start-polybar &
 
 # Openbox autostart
 ob-autostart -d &

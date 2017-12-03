@@ -5,7 +5,7 @@ terminal:
     foreground: "#FFF1FF"
     bold: "#FFF1FF"
     termbackground: "rgba(25,4,60,0.80)"
-    font: "Ubuntu Mono Nerd Font 9"
+    font: "Ubuntu Mono 9"
     colors: ["#19043C", "#EE79A9", "#8C9440", "#DE935F", "#05C6F1", "#85678F", "#5E8D87", "#969CD3", "#ED5181"]
     # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
 

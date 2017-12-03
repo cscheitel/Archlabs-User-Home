@@ -40,7 +40,7 @@ gaps inner 12
 gaps outer 0
 
 # font
-font pango:Ubuntu Light 11
+font pango:Ubuntu 11
 
 
 ##
@@ -76,7 +76,7 @@ set $secondMonitor HDMI2
 
 # run with reload
 exec_always --no-startup-id start-compton
-exec_always --no-startup-id launch-polybar
+exec_always --no-startup-id start-polybar
 exec_always --no-startup-id numlockx on
 
 # run once

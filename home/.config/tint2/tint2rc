@@ -70,7 +70,7 @@ border_color_pressed = #222222 90
 
 #-------------------------------------
 # Panel
-panel_items = LTBSC
+panel_items = PLTSC
 panel_size = 100% 30
 panel_margin = 0 0
 panel_padding = 0 0 0
@@ -217,3 +217,8 @@ tooltip_padding = 2 2
 tooltip_background_id = 6
 tooltip_font_color = #d8d8d8 100
 tooltip_font = Ubuntu 10
+
+button = new
+button_icon = /tmp/jgmenu/flame-light.svg
+button_max_icon_size = 22
+button_lclick_command= jgmenu_run lx

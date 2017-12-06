@@ -24,24 +24,26 @@ if [[ $1 == "--reload" ]] && [[ $CUR_WM == "openbox" ]]; then
     al-compositor --restart
     al-tint2restart
 elif [[ $1 == "--reload" ]]; then 
-    echo "[WARN]:  Option [--reload] is meant for Openbox Only"
+    echo "[WARN]:  Option [--reload] is meant for Openbox..."
 fi
 
 # Drop out if tint2 is running
 if pgrep tint2 >/dev/null; then
-  echo "Tint2 is running...  Exiting"
-  exit 0
+    echo "Tint is running...  Exiting"
+    exit 0
+else
+    # Terminate already running Bars
+    while pgrep polybar >/dev/null; do
+        pkill polybar
+        sleep 0.5
+    done
+
+    # Launch each bar in BARS=() above
+    echo "Using $CUR_WM...  Launching Bars"
+    for bar in "${BARS[@]}"; do
+        polybar -r --config=$CONFIG ${CUR_WM}-$bar &
+    done
+    echo "Bars launched..."
 fi
 
-# Terminate already running Bars
-while pgrep polybar >/dev/null; do
-  killall -q polybar
-  sleep 0.5
-done
 
-# Launch each bar in BARS=() above
-echo "Using $CUR_WM...  Launching Bars"
-for bar in "${BARS[@]}"; do
-  polybar -r --config=$CONFIG ${CUR_WM}-$bar &
-done
-echo "Bars launched..."

@@ -176,6 +176,8 @@
   </dock>
   <keyboard>
     <chainQuitKey/>
+
+    <!-- Window & Desktop Control -->
     <keybind key="W-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -263,11 +265,8 @@
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </keybind>
-    <keybind key="A-space">
-      <action name="ShowMenu">
-        <menu>client-menu</menu>
-      </action>
-    </keybind>
+
+    <!-- Media & Backlight -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>pamixer -i 2</command>
@@ -313,6 +312,8 @@
         <command>xbacklight -10</command>
       </action>
     </keybind>
+
+    <!-- Applications -->
     <keybind key="Print">
       <action name="Execute">
         <command>scrot 'ArchLabs_%Y-%m-%d-%S_$wx$h.png' -e 'mv $f $$(xdg-user-dir PICTURES) ; gpicview $$(xdg-user-dir PICTURES)/$f'</command>
@@ -321,11 +322,6 @@
     <keybind key="A-Print">
       <action name="Execute">
         <command>scrot -d 5 'ArchLabs_%Y-%m-%d-%S_$wx$h.png' -e 'mv $f $$(xdg-user-dir PICTURES) ; gpicview $$(xdg-user-dir PICTURES)/$f'</command>
-      </action>
-    </keybind>
-    <keybind key="A-F1">
-      <action name="Execute">
-        <command>rofi-gorice</command>
       </action>
     </keybind>
     <keybind key="W-f">
@@ -348,6 +344,11 @@
         <command>al-open -edit</command>
       </action>
     </keybind>
+    <keybind key="C-A-m">
+      <action name="Execute">
+        <command>xfce4-settings-manager</command>
+      </action>
+    </keybind>
     <keybind key="W-m">
       <action name="Execute">
         <command>audacious</command>
@@ -358,22 +359,16 @@
         <command>pavucontrol</command>
       </action>
     </keybind>
-    <keybind key="W-x">
-      <action name="Execute">
-        <command>exit-openbox</command>
-      </action>
-    </keybind>
-    <keybind key="W-S-x">
-      <action name="Exit"/>
-    </keybind>
-    <keybind key="W-Escape">
-      <action name="Execute">
-        <command>xkill</command>
-      </action>
-    </keybind>
+
+    <!-- Launchers -->
     <keybind key="W-s">
       <action name="Execute">
         <command>skippy-xd</command>
+      </action>
+    </keybind>
+    <keybind key="A-F1">
+      <action name="Execute">
+        <command>rofi-gorice</command>
       </action>
     </keybind>
     <keybind key="C-space">
@@ -381,10 +376,20 @@
         <command>rofi-gorice</command>
       </action>
     </keybind>
-    <keybind key="W-space">
-      <action name="ShowMenu">
-        <menu>root-menu</menu>
+
+    <!-- Logout & Reload -->
+    <keybind key="W-x">
+      <action name="Execute">
+        <command>exit-openbox</command>
       </action>
+    </keybind>
+    <keybind key="C-A-Delete">
+      <action name="Execute">
+        <command>exit-openbox</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-Escape">
+      <action name="Exit"/>
     </keybind>
     <keybind key="W-S-r">
       <action name="Execute">
@@ -396,6 +401,13 @@
     </keybind>
     <keybind key="C-S-Enter">
       <action name="Reconfigure"/>
+    </keybind>
+
+    <!-- Window Control -->
+    <keybind key="W-Escape">
+      <action name="Execute">
+        <command>xkill</command>
+      </action>
     </keybind>
     <keybind key="A-F4">
       <action name="Close"/>
@@ -424,11 +436,19 @@
     <keybind key="S-W-q">
       <action name="Close"/>
     </keybind>
-    <keybind key="C-A-m">
-      <action name="Execute">
-        <command>xfce4-settings-manager</command>
+
+    <keybind key="W-space">
+      <action name="ShowMenu">
+        <menu>root-menu</menu>
       </action>
     </keybind>
+    <keybind key="A-space">
+      <action name="ShowMenu">
+        <menu>client-menu</menu>
+      </action>
+    </keybind>
+
+    <!-- Tiling Bindings -->
     <keybind key="W-KP_1">
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
@@ -538,11 +558,6 @@
         <x>0</x>
         <y>0</y>
         <width>50%</width>
-      </action>
-    </keybind>
-    <keybind key="C-A-Delete">
-      <action name="Execute">
-        <command>exit-openbox</command>
       </action>
     </keybind>
     <keybind key="W-A-Right">

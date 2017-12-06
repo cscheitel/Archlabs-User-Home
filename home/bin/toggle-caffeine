@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
 # if the script is passed --toggle
-if [[ "$1" == *toggle* ]]; then
-    if pgrep caffeine >/dev/null; then
-        killall caffeine
-    else
-        caffeine &>/dev/null &
-    fi
-    exit 0
+if [[ "$1" == *toggle* ]] && pgrep caffeine >/dev/null; then
+    killall caffeine && exit 0
+elif [[ "$1" == *toggle* ]]; then
+    caffeine &>/dev/null && exit 0
 fi
 
 while true; do

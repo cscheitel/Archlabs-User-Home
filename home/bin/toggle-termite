@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-MATCH=$(pgrep --full 'termite --title=work-term')
-if ! $MATCH; then
+if pgrep --full 'termite --title=work-term' >/dev/null; then
     pkill --full 'termite --title=work-term'
 else
     termite --title=work-term --class=work-term &

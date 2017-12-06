@@ -24,7 +24,7 @@ super + shift + r
 
 # quit bspwm normally
 super + x
-    bspc quit
+    rofi-logout
 
 # close and kill
 super + {_,shift + }q

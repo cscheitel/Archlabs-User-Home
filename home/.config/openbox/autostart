@@ -27,4 +27,4 @@ sleep 2; al-conky-session &
 
 xdg-user-dirs-gtk-update &
 
-termite --geometry=650x450 --exec=al-hello &
+# al-hello

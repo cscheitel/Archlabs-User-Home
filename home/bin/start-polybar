@@ -1,31 +1,45 @@
 #!/usr/bin/env bash
 
+#
+# Polybar launcher script written by Nathaniel Maia for use in ArchLabs
+# Will launch bars depending on WM 
+# Can also be used to reload openbox session with [--reload] or [-r]
+
+
 # Enter your bar names here (seperated by spaces) eg BARS=(bar bar1 my-bar)
 # This will be combined with CUR_WM eg. openbox-bar, bspwm-bar, i3-bar
 BARS=(bar)
-
 CONFIG=$HOME/.config/polybar/config
-CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
-if [[ $1 == "--reload" ]] || [[ $1 == "-r" ]]; then
-  if [[ $CUR_WM == "openbox" ]]; then
+
+
+if [[ "$(xprop -root | grep -i "openbox")" > /dev/null ]]; then
+    CUR_WM="openbox"
+else
+    CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
+fi
+
+# Reload openbox session
+if [[ $1 == "--reload" ]] && [[ $CUR_WM == "openbox" ]]; then
     openbox --restart
     al-compositor --restart
     al-tint2restart
-  else
-    echo "[WARN]:  Option [--reload] is meant for Openbox..."
-  fi
+elif [[ $1 == "--reload" ]]; then 
+    echo "[WARN]:  Option [--reload] is meant for Openbox Only"
 fi
 
-if pgrep -x "tint2" >/dev/null; then
-  echo "Tint is running...  Exiting"
-  exit 1
+# Drop out if tint2 is running
+if pgrep tint2 >/dev/null; then
+  echo "Tint2 is running...  Exiting"
+  exit 0
 fi
 
-while pgrep -x polybar >/dev/null; do
+# Terminate already running Bars
+while pgrep polybar >/dev/null; do
   killall -q polybar
   sleep 0.5
 done
 
+# Launch each bar in BARS=() above
 echo "Using $CUR_WM...  Launching Bars"
 for bar in "${BARS[@]}"; do
   polybar -r --config=$CONFIG ${CUR_WM}-$bar &

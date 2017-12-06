@@ -2,6 +2,7 @@
 
 connected=""
 disconnected=""
+
 while true; do
   if ping -c1 8.8.8.8 >/dev/null; then
     echo "$connected"; sleep 10

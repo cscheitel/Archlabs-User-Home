@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
+if [[ "$(xprop -root | grep -i "openbox")" > /dev/null ]]; then
+    CUR_WM="openbox"
+else
+    CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
+fi
 
 ANS=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -font "Ubuntu 11" -eh 1 -line-padding 4 -padding 20 -no-config -lines 4 -color-enabled -color-window "#1F2326, #F1F1F1, #1F2326" -color-normal "#1F2326, #F1F1F1, #1F2326, #4E88CF, #1F2326")
 

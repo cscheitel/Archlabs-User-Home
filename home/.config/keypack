@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+
+sed -i '/keypack/d' $HOME/.config/openbox/autostart
+
+do_setup() {
+    KEYS=('AEFB411B072836CD48FF0381AE252C284B5DBA5D'
+          '9E4F11C6A072942A7B3FD3B0B81EB14A09A25EB0'
+          '35F52A02854DCCAEC9DD5CC410443C7F54B00041')
+    sudo pacman-key --init
+    sudo pacman-key --populate archlinux
+    for key in "${KEYS[@]}"; do
+        if ! sudo pacman-key --list-keys | grep $key >/dev/null 2>&1; then
+            gpg --receive-keys $key
+            sudo pacman-key -r $key
+        fi
+    done
+    sudo pacman-key --populate archlabs
+}
+
+net=$(ping -c1 8.8.8.8 2>&1)
+while ! [[ $net >/dev/null ]]; do
+  net=$(ping -c1 8.8.8.8 2>&1)
+  sleep 1
+done
+
+do_setup
+
+rm -f $HOME/.config/keypack

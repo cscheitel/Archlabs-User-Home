@@ -117,14 +117,13 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>5</number>
+    <number>4</number>
     <firstdesk>0</firstdesk>
     <names>
       <name>1</name>
       <name>2</name>
       <name>3</name>
       <name>4</name>
-      <name>5</name>
     </names>
     <popupTime>800</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
@@ -864,7 +863,7 @@
       </position>
       <fullscreen>yes</fullscreen>
     </application>
-    <!--  Set applications to open on a specific desktop  -->
+    <!--  Set applications to open on a specific desktop 
     <application class="obconf">
       <focus>yes</focus>
       <position force="no">
@@ -986,5 +985,6 @@
       <desktop>5</desktop>
       <focus>yes</focus>
     </application>
+   -->
   </applications>
 </openbox_config>

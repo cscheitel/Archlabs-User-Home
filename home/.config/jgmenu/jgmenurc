@@ -3,60 +3,32 @@
 at_pointer      = 0
 stay_alive      = 0
 multi_window    = 1
-tint2_look      = 0
+tint2_look      = 1
 
 menu_halign     = left
 menu_valign     = top
 menu_margin_x   = 0
-menu_margin_y   = 24
+menu_margin_y   = 25
 
 menu_width	    = 200
 menu_radius	    = 2
 menu_border	    = 1
 
-menu_padding_top    = 4
+menu_padding_top    = 8
 menu_padding_right  = 4
-menu_padding_bottom = 4
+menu_padding_bottom = 8
 menu_padding_left   = 4
 
-item_height	        = 24
+item_height	        = 25
 item_padding_x  	= 5
 item_radius	        = 0
 item_border	        = 1
 sep_height      	= 5
 
 icon_size	        = 24
-font		        = Ubuntu 11px
+font		        = Ubuntu 12px
 
 sub_hover_action    = 1
-#csv_cmd             = jgmenu_run parse-pmenu
 terminal_exec       = termite
 terminal_args       = -e
 
-#sub_spacing         = 1
-#sub_padding_top     = -1
-#sub_padding_right   = -1
-#sub_padding_bottom  = -1
-#sub_padding_left    = -1
-
-#item_margin_x       = 3
-#item_margin_y       = 3
-#item_halign         = left
-
-#font_fallback       = xtg
-#icon_text_spacing   = 10
-#icon_theme          =
-#icon_theme_fallback = xtg
-#hide_on_startup     = 0
-
-#arrow_string        = ▸
-#arrow_width         = 15
-#color_menu_bg       = #1F2326 90
-#color_menu_fg       = #eeeeee 20
-#color_menu_border   = #eeeeee 8
-#color_norm_bg       = #000000 00
-#color_norm_fg       = #eeeeee 100
-#color_sel_bg        = #ffffff 20
-#color_sel_fg        = #eeeeee 100
-#color_sel_border    = #eeeeee 8
-#color_sep_fg        = #ffffff 20

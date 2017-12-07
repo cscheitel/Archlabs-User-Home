@@ -5,10 +5,11 @@ terminal:
     foreground: "#c0c5ce"
     bold: "#c0c5ce"
     termbackground: "rgba(43,48,59,0.80)"
-    font: "Ubuntu Mono 10"
+    font: "Fantasque Sans Mono 12"
     colors: ["#2b303b", "#bf616a", "#a3be8c", "#ebcb8b", "#8fa1b3", "#b48ead", "#96b5b4", "#65737e", "#F6F6F6"]
     # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
 
+# things to do with the bars borders mostly
 border:
     pixels: 2
     all: 0
@@ -16,12 +17,12 @@ border:
     bottom: 2
     color: "#c0c5ce"
 
-
+# in openbox this handles the menu gaps
 gap:
     inner: 10
     outer: 0
 
-
+# more bar related stuff, like the main font & size
 bar:
     height: 28
     width: "100%"

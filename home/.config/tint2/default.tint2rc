@@ -219,6 +219,6 @@ tooltip_font_color = #d8d8d8 100
 tooltip_font = Ubuntu 10
 
 button = new
-button_icon = /tmp/jgmenu/flame-light.svg
+button_icon = /usr/share/icons/ArchLabs-Dark/32x32/places/distributor-logo-archlabs.png
 button_max_icon_size = 22
 button_lclick_command= jgmenu_run lx

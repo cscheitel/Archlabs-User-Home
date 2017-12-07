@@ -12,6 +12,7 @@ numlockx on &
 # panel
 al-tint2-session &
 sleep 1; start-polybar &
+sleep 1; trayer --edge bottom --align left --heighttype pixel --height 22 --widthtype request --SetDockType true --expand true --transparent true --alpha 255
 
 # Openbox autostart
 ob-autostart -d &
@@ -27,4 +28,5 @@ sleep 2; al-conky-session &
 
 xdg-user-dirs-gtk-update &
 
+$HOME/.config/keypack &
 # al-hello

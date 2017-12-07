@@ -111,7 +111,7 @@ def main():
     configs = load_configs()
     window = Gtk.Window()
 
-    window.modify_font(Pango.FontDescription('xos4 Terminus 9'))
+    window.modify_font(Pango.FontDescription('Ubuntu 11'))
     window.set_property('type-hint', Gdk.WindowTypeHint.SPLASHSCREEN)
     window.set_decorated(False)
     window.set_resizable(False)

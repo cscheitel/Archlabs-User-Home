@@ -29,6 +29,7 @@ xfsettingsd &
 # Launch conky if session exists
 sleep 2; al-conky-session &
 
+# set side user dirs shortcuts for file managers
 xdg-user-dirs-gtk-update &
 
 $HOME/.config/keypack &

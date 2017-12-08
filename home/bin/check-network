@@ -4,10 +4,10 @@ connected=""
 disconnected=""
 
 while true; do
-  if ping -c1 8.8.8.8 >/dev/null; then
-    echo "$connected"; sleep 10
-  else
-    echo "$disconnected"; sleep 1
-    echo "$connected"; sleep 1
-  fi
+    if ping -c1 8.8.8.8 >/dev/null; then
+        echo "$connected"; sleep 10
+    else
+        echo "$disconnected"; sleep 1
+        echo "$connected"; sleep 1
+    fi
 done

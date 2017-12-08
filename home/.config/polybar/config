@@ -18,7 +18,7 @@ inherit = bar/master
 monitor =
 
 modules-left   = jgmenu config workspaces
-modules-center = clock window_switch
+modules-center = window_switch clock 
 modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)

@@ -7,22 +7,23 @@ tint2_look      = 1
 
 menu_halign     = left
 menu_valign     = top
-menu_margin_x   = 0
-menu_margin_y   = 25
+menu_margin_x   = 5
+menu_margin_y   = 30
 
 menu_width	    = 200
-menu_radius	    = 2
+menu_radius	    = 0
 menu_border	    = 1
 
-menu_padding_top    = 8
-menu_padding_right  = 4
-menu_padding_bottom = 8
-menu_padding_left   = 4
+menu_padding_top    = 15
+menu_padding_right  = 2
+menu_padding_bottom = 5
+menu_padding_left   = 2
 
-item_height	        = 25
+item_height	        = 30
 item_padding_x  	= 5
+item_margin_y	    = 5
 item_radius	        = 0
-item_border	        = 1
+item_border	        = 0
 sep_height      	= 5
 
 icon_size	        = 24
@@ -32,3 +33,10 @@ sub_hover_action    = 1
 terminal_exec       = termite
 terminal_args       = -e
 
+color_menu_bg = #2b303b 100
+color_menu_fg = #8fa1b3 100
+color_norm_bg = #2b303b 0
+color_norm_fg = #8fa1b3 100
+color_sel_bg  = #8fa1b3 60
+color_sel_fg  = #2b303b 100
+color_sep_fg  = #8fa1b3 40

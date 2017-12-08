@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 while pgrep polybar >/dev/null; do
-    killall -q polybar
-    sleep 0.5
+    killall -q polybar && sleep 0.5
 done
 echo "Bars stopped..."

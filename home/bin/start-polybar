@@ -1,44 +1,53 @@
 #!/usr/bin/env bash
 
-#
 # Polybar launcher script written by Nathaniel Maia for use in ArchLabs
 # Will launch bars depending on WM 
 # Can also be used to reload openbox session with [--reload] or [-r]
 
 
-# Enter your bar names here (seperated by spaces) eg BARS=(bar bar1 my-bar)
-# This will be combined with CUR_WM eg. openbox-bar, bspwm-bar, i3-bar
+# Enter your bar names here (seperated by spaces) eg. BARS=(bar bar1 my-bar)
+# This will be combined with CUR_WM in WMS below  eg. openbox-bar, bspwm-bar1, i3-my-bar etc.
+# by default it is set up in WM-BAR naming format
 BARS=(bar)
 CONFIG=$HOME/.config/polybar/config
+WMS=(bspwm i3 openbox)
 
+HELP="\nUSAGE:\n\tstart-polybar [OPTIONS]
+\nOPTIONS:\n\t--reload, -r\tIf running in openbox, will reload the session
+\t--help, -h\tPrint this usage message and exit
+\n\tWith no options the script will stop and reload polybar"
 
-if [[ "$(xprop -root | grep -i "openbox")" > /dev/null ]]; then
-    CUR_WM="openbox"
-else
-    CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
-fi
+for i in ${WMS[@]}; do
+    if [[ "$(wmctrl -m | grep -i name | awk '{print tolower($2)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(xprop -root -notype | grep "WM_NAME =" | tr -d '"' | awk '{print tolower($3)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(awk '{print tolower($0)}' <<< $XDG_CURRENT_DESKTOP)" == "$i" ]]; then
+        WM=$i && break
+    fi  
+done
 
-# Reload openbox session
-if [[ $1 == "--reload" ]] && [[ $CUR_WM == "openbox" ]]; then
-    openbox --restart
-    al-compositor --restart
-    al-tint2restart
-elif [[ $1 == "--reload" ]]; then 
-    echo "[WARN]:  Option [--reload] is meant for Openbox..."
-fi
+case "$@" in
+    *help|-h)
+        echo -e $HELP && exit 0
+        ;;
+    *reload|-r)
+        if [[ "$CUR_WM" == "openbox" ]]; then
+            openbox --restart
+            al-compositor --restart && al-tint2restart
+        fi
+        ;;
+    *)
+        :
+        ;;
+esac
 
-# Drop out if tint2 is running
 if pgrep tint2 >/dev/null; then
-    echo "Tint is running...  Exiting"
-    exit 0
+    echo "Tint is running...  Exiting" && exit 0
 else
-    # Terminate already running Bars
     while pgrep polybar >/dev/null; do
-        pkill polybar
-        sleep 0.5
+        pkill polybar && sleep 0.5
     done
-
-    # Launch each bar in BARS=() above
     echo "Using $CUR_WM...  Launching Bars"
     for bar in "${BARS[@]}"; do
         polybar -r --config=$CONFIG ${CUR_WM}-$bar &

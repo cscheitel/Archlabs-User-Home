@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # if the script is passed --toggle
-if [[ "$1" == *toggle* ]] && pgrep caffeine >/dev/null; then
+if [[ $1 == *toggle* ]] && pgrep caffeine >/dev/null; then
     killall caffeine && exit 0
-elif [[ "$1" == *toggle* ]]; then
+elif [[ $1 == *toggle* ]]; then
     caffeine &>/dev/null && exit 0
 fi
 

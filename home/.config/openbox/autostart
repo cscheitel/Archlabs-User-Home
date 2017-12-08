@@ -1,18 +1,21 @@
-# launch compton
+# launch compton if enabled
 al-compositor --start &
 
 $HOME/.config/setup &
+# enable numlock, comment out if you dont have a numpad
+numlockx on &
 
 # restore wallpaper
 nitrogen --restore &
 
-# enable numlock
-numlockx on &
-
-# panel
+# start tint2 if enabled
 al-tint2-session &
+
+# start polybar if tint2 not enabled (start after al-tint-session)
 sleep 1; start-polybar &
-sleep 1; trayer --edge bottom --align left --heighttype pixel --height 22 --widthtype request --SetDockType true --expand true --transparent true --alpha 255
+
+# system tray
+sleep 1; trayer --edge bottom --align left --widthtype request --SetDockType false --expand true &
 
 # Openbox autostart
 ob-autostart -d &
@@ -20,7 +23,7 @@ ob-autostart -d &
 # PolicyKit authentication
 lxpolkit &
 
-# Required for xfce setting to work
+# Required for xfce settings to work
 xfsettingsd &
 
 # Launch conky if session exists

@@ -21,7 +21,7 @@
     line_height = 0
     separator_height = 2
     padding = 10
-    horizontal_padding = 10
+    horizontal_padding = 20
     frame_color = "{{.Data.border_color}}"
     separator_color = frame
     frame_width = 1

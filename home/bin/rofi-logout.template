@@ -1,32 +1,25 @@
 #!/usr/bin/env bash
 
-if [[ "$(xprop -root | grep -i "openbox")" > /dev/null ]]; then
-    CUR_WM="openbox"
-else
-    CUR_WM=$(xprop -root | grep "_NET_WM_NAME(UTF8_STRING)" | cut -d " " -f 3 | sed 's/"//g' | awk '{print tolower($0)}')
-fi
+question=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" \
+    -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -font "Ubuntu 11" \
+    -eh 1 -line-padding 4 -padding 20 -no-config -lines 4 -color-enabled \
+    -color-window "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}" \
+    -color-normal "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}, {{index .Data.terminal_colors 4}}, {{.Data.terminal_background}}")
 
-ANS=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" -dmenu -i -p 'System: ' "" -width 20 -hide-scrollbar -font "Ubuntu 11" -eh 1 -line-padding 4 -padding 20 -no-config -lines 4 -color-enabled -color-window "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}" -color-normal "{{.Data.terminal_background}}, {{.Data.terminal_foreground}}, {{.Data.terminal_background}}, {{index .Data.terminal_colors 4}}, {{.Data.terminal_background}}")
-
-if [[ "$ANS" == *lock ]]; then
-  i3lock-fancy
-elif [[ "$ANS" == *logout ]]; then
-    if [[ "$CUR_WM" == "i3" ]]; then
-        i3-msg exit
-    elif [[ "$CUR_WM" == "bspwm" ]]; then
-        for window_id in $(bspc query -W); do
-            bspc window $window_id -c
-        done
-        killall sxhkd
-        bspc quit
-    elif [[ "$CUR_WM" == "openbox" ]]; then
-        openbox --exit
-    else
-        echo "Unknown WM... Exiting"
-        exit 1
-    fi
-elif [[ "$ANS" == *reboot ]]; then
-  systemctl reboot
-elif [[ "$ANS" == *shutdown ]]; then
-  systemctl poweroff
-fi
+case $question in
+    *lock) 
+        i3lock-fancy
+        ;;
+    *logout) 
+        session-logout
+        ;;
+    *reboot) 
+        systemctl reboot
+        ;;
+    *shutdown) 
+        systemctl poweroff
+        ;;
+    *) 
+        :  # do nothing on wrong response
+        ;;
+esac

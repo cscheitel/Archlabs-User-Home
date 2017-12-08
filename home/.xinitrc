@@ -1,13 +1,14 @@
 #!/bin/sh
 #
 # ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
+# Executed by startx 
+# By calling this with arguments we can start different sessions
+# eg. startx ~/.xinitrc i3  or  startx ~/.xinitrc bspwm
+# simply using startx, openbox is set as the default
 
+session=${1:-openbox}
 
-XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CONFIG_HOME
-
+# source files in /etc/X11/xinit/xinitrc.d
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
     for f in /etc/X11/xinit/xinitrc.d/*; do
         [ -x "$f" ] && . "$f"
@@ -15,8 +16,28 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
     unset f
 fi
 
-if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-    eval `dbus-launch --sh-syntax --exit-with-session`
-fi
+# this must be before the 'exec' command
+# it sources ~/.xprofile for additional settings
+[ -f ~/.xprofile ] && . ~/.xprofile
 
-exec openbox-session
+# start the session
+case $session in
+    i3|i3wm) 
+        exec i3
+        ;;
+    bsp|bspwm)
+        exec bspwm
+        ;;
+    awesome)
+        exec awesome
+        ;;
+    xfce|xfce4) 
+        exec startxfce4
+        ;;
+    openbox|openbox-session) 
+        exec openbox-session
+        ;;
+    *) 
+        exec $1
+        ;;
+esac

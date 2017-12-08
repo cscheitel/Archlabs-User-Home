@@ -17,6 +17,7 @@ HELP="\nUSAGE:\n\tstart-polybar [OPTIONS]
 \t--help, -h\tPrint this usage message and exit
 \n\tWith no options the script will stop and reload polybar"
 
+# determine WM
 for i in ${WMS[@]}; do
     if [[ "$(wmctrl -m | grep -i name | awk '{print tolower($2)}')" == "$i" ]]; then
         WM=$i && break
@@ -27,32 +28,38 @@ for i in ${WMS[@]}; do
     fi  
 done
 
+# check if passed options
 case "$@" in
     *help|-h)
         echo -e $HELP && exit 0
         ;;
     *reload|-r)
-        if [[ "$CUR_WM" == "openbox" ]]; then
+        if [[ "$WM" == "openbox" ]]; then
             openbox --restart
             al-compositor --restart && al-tint2restart
         fi
         ;;
-    *)
-        :
-        ;;
 esac
 
-if pgrep tint2 >/dev/null; then
-    echo "Tint is running...  Exiting" && exit 0
-else
-    while pgrep polybar >/dev/null; do
-        pkill polybar && sleep 0.5
-    done
-    echo "Using $CUR_WM...  Launching Bars"
-    for bar in "${BARS[@]}"; do
-        polybar -r --config=$CONFIG ${CUR_WM}-$bar &
-    done
-    echo "Bars launched..."
-fi
 
+# bail if tint2 is running
+if [ "$(pidof tint2)" ]; then exit 0; fi
+
+
+# kill running bars
+while [ "$(pidof polybar)" ]; do
+    pkill polybar && sleep 0.5
+done
+
+
+# launch bars
+for bar in "${BARS[@]}"; do
+    polybar -r --config=$CONFIG ${WM}-$bar &
+done
+
+if [ "$(pidof polybar)" ]; then
+    echo "Bars launched..."
+else
+    echo "Bars Failed to Launch"
+fi
 

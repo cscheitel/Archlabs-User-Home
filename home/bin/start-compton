@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
-if [ -e "$HOME/.config/.composite_enabled" ] && pgrep compton >/dev/null; then
+if [ -e "$HOME/.config/.composite_enabled" ] && [ "$(pidof compton)" ]; then
     al-compositor --restart
 elif [ -e "$HOME/.config/.composite_enabled" ]; then
     al-compositor --start
 else
-    echo -e "Compositing in not enabled.. Requires ~/.config/.composite_enabled
-    \n\nTry running paranoid and enabling compositing"
+    echo "#Compositing enabled" > $HOME/.config/.composite_enabled
+    if [ "$(pidof compton)" ]; then
+        al-compositor --start
+    else
+        al-compositor --restart
+    fi 
 fi

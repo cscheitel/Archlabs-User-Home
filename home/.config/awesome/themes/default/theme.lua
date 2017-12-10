@@ -1,5 +1,5 @@
 ---------------------------
--- Default SETKEH theme --
+-- Default ArchLabs theme --
 ---------------------------
 
 local awful = require("awful")
@@ -8,8 +8,8 @@ local awful = require("awful")
 home_path  = os.getenv('HOME') .. '/'
 
 theme = {}
-theme.wallpaper = awful.util.getdir("config") .. "/themes/default/bg.png"
-theme.font          = "terminus 8"
+theme.wallpaper_cmd = { "awsetbg /usr/share/backgrounds/archlabs/archlabs.png" }
+theme.font          = "Ubuntu 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -59,8 +59,8 @@ theme.tasklist_floating_icon = home_path .. '.config/awesome/themes/default/task
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = home_path .. '.config/awesome/themes/default/submenu.png'
-theme.menu_height = "15"
-theme.menu_width  = "100"
+theme.menu_height = "20"
+theme.menu_width  = "150"
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -105,8 +105,8 @@ theme.layout_tiletop = home_path .. '.config/awesome/themes/default/layouts/tile
 theme.layout_spiral  = home_path .. '.config/awesome/themes/default/layouts/spiralw.png'
 theme.layout_dwindle = home_path .. '.config/awesome/themes/default/layouts/dwindlew.png'
 
-theme.awesome_icon = home_path .. '.config/awesome/themes/default/icon/awesome16.png'
-theme.arch_icon = home_path .. '.config/awesome/themes/default/icon/Arch.png'
+theme.awesome_icon = home_path .. '.config/awesome/themes/default/icon/awesome-icon.png'
+theme.arch_icon = home_path .. '.config/awesome/themes/default/icon/ArchLabs.png'
 
 -- {{{ Widgets
 theme.widget_disk = awful.util.getdir("config") .. "/themes/default/widgets/disk.png"
@@ -122,8 +122,6 @@ theme.widget_vol = awful.util.getdir("config") .. "/themes/default/widgets/vol.p
 theme.widget_mute = awful.util.getdir("config") .. "/themes/default/widgets/mute.png"
 theme.widget_pac = awful.util.getdir("config") .. "/themes/default/widgets/pac.png"
 theme.widget_pacnew = awful.util.getdir("config") .. "/themes/default/widgets/pacnew.png"
-theme.widget_mail = awful.util.getdir("config") .. "/themes/default/widgets/mail.png"
-theme.widget_mailnew = awful.util.getdir("config") .. "/themes/default/widgets/mailnew.png"
 theme.widget_temp = awful.util.getdir("config") .. "/themes/default/widgets/temp.png"
 theme.widget_tempwarn = awful.util.getdir("config") .. "/themes/default/widgets/tempwarm.png"
 theme.widget_temphot = awful.util.getdir("config") .. "/themes/default/widgets/temphot.png"

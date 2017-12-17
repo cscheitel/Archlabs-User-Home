@@ -18,36 +18,36 @@ local ossvol = {}
 
 -- {{{ Volume widget type
 local function worker(format, warg)
-    if not warg then return end
+  if not warg then return end
 
-    local mixer_state = {
-        ["on"]  = "♫", -- "",
-        ["off"] = "♩"  -- "M"
-    }
+  local mixer_state = {
+    ["on"]  = "♫", -- "",
+    ["off"] = "♩"  -- "M"
+  }
 
-    -- Get mixer control contents
-    local f = io.popen("ossmix -c")
-    local mixer = f:read("*all")
-    f:close()
+  -- Get mixer control contents
+  local f = io.popen("ossmix -c")
+  local mixer = f:read("*all")
+  f:close()
 
-    -- Capture mixer control state
-    local volu = tonumber(string.match(mixer, warg .. "[%s]([%d%.]+)"))/0.25
-    local mute = string.match(mixer, "vol%.mute[%s]([%a]+)")
-    -- Handle mixers without data
-    if volu == nil then
-       return {0, mixer_state["off"]}
-    end
+  -- Capture mixer control state
+  local volu = tonumber(string.match(mixer, warg .. "[%s]([%d%.]+)"))/0.25
+  local mute = string.match(mixer, "vol%.mute[%s]([%a]+)")
+  -- Handle mixers without data
+  if volu == nil then
+    return {0, mixer_state["off"]}
+  end
 
-    -- Handle mixers without mute
-    if mute == "OFF" and volu == "0"
-    -- Handle mixers that are muted
-    or mute == "ON" then
-       mute = mixer_state["off"]
-    else
-       mute = mixer_state["on"]
-    end
+  -- Handle mixers without mute
+  if mute == "OFF" and volu == "0"
+  -- Handle mixers that are muted
+  or mute == "ON" then
+    mute = mixer_state["off"]
+  else
+    mute = mixer_state["on"]
+  end
 
-    return {volu, mute}
+  return {volu, mute}
 end
 -- }}}
 

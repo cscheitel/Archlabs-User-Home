@@ -19,17 +19,17 @@ local uptime = {}
 
 -- {{{ Uptime widget type
 local function worker(format)
-    local proc = helpers.pathtotable("/proc")
+  local proc = helpers.pathtotable("/proc")
 
-    -- Get system uptime
-    local up_t = math.floor(string.match(proc.uptime, "[%d]+"))
-    local up_d = math.floor(up_t   / (3600 * 24))
-    local up_h = math.floor((up_t  % (3600 * 24)) / 3600)
-    local up_m = math.floor(((up_t % (3600 * 24)) % 3600) / 60)
+  -- Get system uptime
+  local up_t = math.floor(string.match(proc.uptime, "[%d]+"))
+  local up_d = math.floor(up_t   / (3600 * 24))
+  local up_h = math.floor((up_t  % (3600 * 24)) / 3600)
+  local up_m = math.floor(((up_t % (3600 * 24)) % 3600) / 60)
 
-    local l1, l5, l15 = -- Get load averages for past 1, 5 and 15 minutes
-      string.match(proc.loadavg, "([%d%.]+)[%s]([%d%.]+)[%s]([%d%.]+)")
-    return {up_d, up_h, up_m, l1, l5, l15}
+  local l1, l5, l15 = -- Get load averages for past 1, 5 and 15 minutes
+    string.match(proc.loadavg, "([%d%.]+)[%s]([%d%.]+)[%s]([%d%.]+)")
+  return {up_d, up_h, up_m, l1, l5, l15}
 end
 -- }}}
 

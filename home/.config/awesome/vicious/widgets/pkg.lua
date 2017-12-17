@@ -17,31 +17,31 @@ local pkg = {}
 
 -- {{{ Packages widget type
 local function worker(format, warg)
-    if not warg then return end
+  if not warg then return end
 
-    -- Initialize counters
-    local updates = 0
-    local manager = {
-        ["Arch"]   = { cmd = "pacman -Qu" },
-        ["Arch C"] = { cmd = "checkupdates" },
-        ["Arch S"] = { cmd = "yes | pacman -Sup", sub = 1 },
-        ["Debian"] = { cmd = "apt-show-versions -u -b" },
-        ["Ubuntu"] = { cmd = "aptitude search '~U'" },
-        ["Fedora"] = { cmd = "yum list updates", sub = 3 },
-        ["FreeBSD"] ={ cmd = "pkg_version -I -l '<'" },
-        ["Mandriva"]={ cmd = "urpmq --auto-select" }
-    }
+  -- Initialize counters
+  local updates = 0
+  local manager = {
+    ["Arch"]   = { cmd = "pacman -Qu" },
+    ["Arch C"] = { cmd = "checkupdates" },
+    ["Arch S"] = { cmd = "yes | pacman -Sup", sub = 1 },
+    ["Debian"] = { cmd = "apt-show-versions -u -b" },
+    ["Ubuntu"] = { cmd = "aptitude search '~U'" },
+    ["Fedora"] = { cmd = "yum list updates", sub = 3 },
+    ["FreeBSD"] ={ cmd = "pkg_version -I -l '<'" },
+    ["Mandriva"]={ cmd = "urpmq --auto-select" }
+  }
 
-    -- Check if updates are available
-    local _pkg = manager[warg]
-    local f = io.popen(_pkg.cmd)
+  -- Check if updates are available
+  local _pkg = manager[warg]
+  local f = io.popen(_pkg.cmd)
 
-    for line in f:lines() do
-        updates = updates + 1
-    end
-    f:close()
+  for line in f:lines() do
+    updates = updates + 1
+  end
+  f:close()
 
-    return {_pkg.sub and math.max(updates-_pkg.sub, 0) or updates}
+  return {_pkg.sub and math.max(updates-_pkg.sub, 0) or updates}
 end
 -- }}}
 

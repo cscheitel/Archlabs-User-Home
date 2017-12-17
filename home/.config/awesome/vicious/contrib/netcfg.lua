@@ -17,18 +17,18 @@ local netcfg = {}
 
 -- {{{ Netcfg widget type
 local function worker(format)
-    -- Initialize counters
-    local profiles = {}
+  -- Initialize counters
+  local profiles = {}
 
-    local f = io.popen("ls -1 /var/run/network/profiles")
-    for line in f:lines() do
-        if line ~= nil then
-            table.insert(profiles, line)
-        end
+  local f = io.popen("ls -1 /var/run/network/profiles")
+  for line in f:lines() do
+    if line ~= nil then
+      table.insert(profiles, line)
     end
-    f:close()
+  end
+  f:close()
 
-    return profiles
+  return profiles
 end
 -- }}}
 

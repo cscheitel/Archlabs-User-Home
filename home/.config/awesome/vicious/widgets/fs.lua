@@ -23,29 +23,29 @@ local unit = { ["mb"] = 1024, ["gb"] = 1024^2 }
 
 -- {{{ Filesystem widget type
 local function worker(format, warg)
-    -- Fallback to listing local filesystems
-    if warg then warg = "" else warg = "-l" end
+  -- Fallback to listing local filesystems
+  if warg then warg = "" else warg = "-l" end
 
-    local fs_info = {} -- Get data from df
-    local f = io.popen("LC_ALL=C df -kP " .. helpers.shellquote(warg))
+  local fs_info = {} -- Get data from df
+  local f = io.popen("LC_ALL=C df -kP " .. helpers.shellquote(warg))
 
-    for line in f:lines() do -- Match: (size) (used)(avail)(use%) (mount)
-        local s     = string.match(line, "^.-[%s]([%d]+)")
-        local u,a,p = string.match(line, "([%d]+)[%D]+([%d]+)[%D]+([%d]+)%%")
-        local m     = string.match(line, "%%[%s]+([%p%w]+)")
+  for line in f:lines() do -- Match: (size) (used)(avail)(use%) (mount)
+    local s     = string.match(line, "^.-[%s]([%d]+)")
+    local u,a,p = string.match(line, "([%d]+)[%D]+([%d]+)[%D]+([%d]+)%%")
+    local m     = string.match(line, "%%[%s]+([%p%w]+)")
 
-        if u and m then -- Handle 1st line and broken regexp
-            helpers.uformat(fs_info, m .. " size",  s, unit)
-            helpers.uformat(fs_info, m .. " used",  u, unit)
-            helpers.uformat(fs_info, m .. " avail", a, unit)
+    if u and m then -- Handle 1st line and broken regexp
+      helpers.uformat(fs_info, m .. " size",  s, unit)
+      helpers.uformat(fs_info, m .. " used",  u, unit)
+      helpers.uformat(fs_info, m .. " avail", a, unit)
 
-            fs_info["{" .. m .. " used_p}"]  = tonumber(p)
-            fs_info["{" .. m .. " avail_p}"] = 100 - tonumber(p)
-        end
+      fs_info["{" .. m .. " used_p}"]  = tonumber(p)
+      fs_info["{" .. m .. " avail_p}"] = 100 - tonumber(p)
     end
-    f:close()
+  end
+  f:close()
 
-    return fs_info
+  return fs_info
 end
 -- }}}
 

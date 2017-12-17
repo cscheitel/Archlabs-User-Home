@@ -6,27 +6,27 @@
   <focus>
     <focusNew>yes</focusNew>
     <!-- always try to focus new windows when they appear. other rules do
-       apply -->
+         apply -->
     <followMouse>no</followMouse>
     <!-- move focus to a window when you move the mouse into it -->
     <focusLast>yes</focusLast>
     <!-- focus the last used window when changing desktops, instead of the one
-       under the mouse pointer. when followMouse is enabled -->
+         under the mouse pointer. when followMouse is enabled -->
     <underMouse>no</underMouse>
     <!-- move focus under the mouse, even when the mouse is not moving -->
     <focusDelay>200</focusDelay>
     <!-- when followMouse is enabled, the mouse must be inside the window for
-       this many milliseconds (1000 = 1 sec) before moving focus to it -->
+         this many milliseconds (1000 = 1 sec) before moving focus to it -->
     <raiseOnFocus>no</raiseOnFocus>
     <!-- when followMouse is enabled, and a window is given focus by moving the
-       mouse into it, also raise the window -->
+         mouse into it, also raise the window -->
   </focus>
   <placement>
     <policy>Smart</policy>
     <!-- 'Smart' or 'UnderMouse' -->
     <center>yes</center>
     <!-- whether to place windows in the center of the free area found or
-       the top left corner -->
+         the top left corner -->
     <monitor>Mouse</monitor>
     <!-- with Smart placement on a multi-monitor system, try to place new windows
          on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
@@ -36,21 +36,21 @@
          focus cycling popup, or the desktop switch popup.  It can be an index
          from 1, specifying a particular monitor.  Or it can be one of the
          following: 'Mouse' - where the mouse is, or
-                    'Active' - where the active window is -->
+         'Active' - where the active window is -->
   </placement>
   <theme>
     <name>gorice</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
-      available characters are NDSLIMC, each can occur at most once.
-      N: window icon
-      L: window label (AKA title).
-      I: iconify
-      M: maximize
-      C: close
-      S: shade (roll up/down)
-      D: omnipresent (on all desktops).
-  -->
+        available characters are NDSLIMC, each can occur at most once.
+        N: window icon
+        L: window label (AKA title).
+        I: iconify
+        M: maximize
+        C: close
+        S: shade (roll up/down)
+        D: omnipresent (on all desktops).
+    -->
     <keepBorder>yes</keepBorder>
     <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
@@ -110,13 +110,11 @@
   </theme>
   <desktops>
     <!-- this stuff is only used at startup, pagers allow you to change them
-       during a session
-
-       these are default values to use when other ones are not already set
-       by other applications, or saved in your session
-
-       use obconf if you want to change these without having to log out
-       and back in -->
+         during a session
+         these are default values to use when other ones are not already set
+         by other applications, or saved in your session
+         use obconf if you want to change these without having to log out
+         and back in -->
     <number>4</number>
     <firstdesk>0</firstdesk>
     <names>
@@ -175,7 +173,6 @@
   </dock>
   <keyboard>
     <chainQuitKey/>
-
     <!-- Window & Desktop Control -->
     <keybind key="W-1">
       <action name="GoToDesktop">
@@ -229,7 +226,7 @@
     </keybind>
     <keybind key="A-Tab">
       <action name="NextWindow">
-		<allDesktops>yes</allDesktops>
+        <allDesktops>yes</allDesktops>
         <raise>yes</raise>
         <finalactions>
           <action name="Focus"/>
@@ -264,7 +261,6 @@
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
     </keybind>
-
     <!-- Media & Backlight -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
@@ -311,7 +307,6 @@
         <command>xbacklight -10</command>
       </action>
     </keybind>
-
     <!-- Applications -->
     <keybind key="Print">
       <action name="Execute">
@@ -358,7 +353,6 @@
         <command>pavucontrol</command>
       </action>
     </keybind>
-
     <!-- Launchers -->
     <keybind key="W-s">
       <action name="Execute">
@@ -375,7 +369,6 @@
         <command>rofi-gorice</command>
       </action>
     </keybind>
-
     <!-- Logout & Reload -->
     <keybind key="W-x">
       <action name="Execute">
@@ -401,7 +394,6 @@
     <keybind key="C-S-Enter">
       <action name="Reconfigure"/>
     </keybind>
-
     <!-- Window Control -->
     <keybind key="W-Escape">
       <action name="Execute">
@@ -435,7 +427,6 @@
     <keybind key="S-W-q">
       <action name="Close"/>
     </keybind>
-
     <keybind key="W-space">
       <action name="ShowMenu">
         <menu>root-menu</menu>
@@ -446,7 +437,6 @@
         <menu>client-menu</menu>
       </action>
     </keybind>
-
     <!-- Tiling Bindings -->
     <keybind key="W-KP_1">
       <action name="UnmaximizeFull"/>
@@ -576,11 +566,11 @@
     <!-- in milliseconds (1000 = 1 second) -->
     <screenEdgeWarpTime>600</screenEdgeWarpTime>
     <!-- Time before changing desktops when the pointer touches the edge of the
-       screen while moving a window, in milliseconds (1000 = 1 second).
-       Set this to 0 to disable warping -->
+         screen while moving a window, in milliseconds (1000 = 1 second).
+         Set this to 0 to disable warping -->
     <screenEdgeWarpMouse>false</screenEdgeWarpMouse>
     <!-- Set this to TRUE to move the mouse pointer across the desktop when
-       switching due to hitting the edge of the screen -->
+         switching due to hitting the edge of the screen -->
     <context name="Frame">
       <mousebind action="Press" button="A-Left">
         <action name="Focus"/>
@@ -615,7 +605,7 @@
           <maximizedvertical>yes</maximizedvertical>
           <then>
             <action name="Unmaximize"/>
-              <direction>vertical</direction>
+            <direction>vertical</direction>
             <action name="MoveResizeTo">
               <x>center</x>
               <y>current</y>
@@ -830,27 +820,27 @@
   </mouse>
   <menu>
     <!-- You can specify more than one menu file in here and they are all loaded,
-       just don't make menu ids clash or, well, it'll be kind of pointless -->
+         just don't make menu ids clash or, well, it'll be kind of pointless -->
     <!-- default menu file (or custom one in $HOME/.config/openbox/) -->
     <!-- system menu files on Debian systems
-    <file>/var/lib/openbox/debian-menu.xml</file>
-    <file>debian-menu.xml</file> -->
+         <file>/var/lib/openbox/debian-menu.xml</file>
+         <file>debian-menu.xml</file> -->
     <file>menu.xml</file>
     <hideDelay>200</hideDelay>
     <!-- if a press-release lasts longer than this setting (in milliseconds), the
-       menu is hidden again -->
+         menu is hidden again -->
     <middle>no</middle>
     <!-- center submenus vertically about the parent entry -->
     <submenuShowDelay>100</submenuShowDelay>
     <!-- time to delay before showing a submenu after hovering over the parent
-       entry.
-       if this is a negative value, then the delay is infinite and the
-       submenu will not be shown until it is clicked on -->
+         entry.
+         if this is a negative value, then the delay is infinite and the
+         submenu will not be shown until it is clicked on -->
     <submenuHideDelay>200</submenuHideDelay>
     <!-- time to delay before hiding a submenu when selecting another
-       entry in parent menu
-       if this is a negative value, then the delay is infinite and the
-       submenu will not be hidden until a different submenu is opened -->
+         entry in parent menu
+         if this is a negative value, then the delay is infinite and the
+         submenu will not be hidden until a different submenu is opened -->
     <applicationIcons>no</applicationIcons>
     <!-- controls if icons appear in the client-list-(combined-)menu -->
     <manageDesktops>yes</manageDesktops>
@@ -863,128 +853,128 @@
       </position>
       <fullscreen>yes</fullscreen>
     </application>
-    <!--  Set applications to open on a specific desktop 
-    <application class="obconf">
-      <focus>yes</focus>
-      <position force="no">
-        <x>center</x>
-        <y>center</y>
-      </position>
-    </application>
-    <application class="tint2conf">
-      <focus>yes</focus>
-      <position force="no">
-        <x>center</x>
-        <y>center</y>
-      </position>
-    </application>
-    <application class="nitrogen">
-      <focus>yes</focus>
-      <position force="no">
-        <x>center</x>
-        <y>center</y>
-      </position>
-    </application>
-    <application class="lollypop">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="spotify">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="rhythmbox">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="vlc*">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="mpv*">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="audacious">
-      <desktop>1</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="chromium">
-      <desktop>2</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="google-chrome">
-      <desktop>2</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="opera">
-      <desktop>2</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="Firefox">
-      <desktop>2</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="Navigator">
-      <desktop>2</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="pcmanfm">
-      <desktop>3</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="dolphin*">
-      <desktop>3</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="nautilus">
-      <desktop>3</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="Thunar">
-      <desktop>3</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="gimp*">
-      <desktop>4</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="inkscape">
-      <desktop>4</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="pinta">
-      <desktop>4</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="gpick">
-      <desktop>4</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="gcolor2">
-      <desktop>4</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="mousepad">
-      <desktop>5</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="Geany">
-      <desktop>5</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="subl3">
-      <desktop>5</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="atom">
-      <desktop>5</desktop>
-      <focus>yes</focus>
-    </application>
-    <application class="mousepad">
-      <desktop>5</desktop>
-      <focus>yes</focus>
-    </application>
-   -->
+    <!--  Set applications to open on a specific desktop
+         <application class="obconf">
+         <focus>yes</focus>
+         <position force="no">
+         <x>center</x>
+         <y>center</y>
+         </position>
+         </application>
+         <application class="tint2conf">
+         <focus>yes</focus>
+         <position force="no">
+         <x>center</x>
+         <y>center</y>
+         </position>
+         </application>
+         <application class="nitrogen">
+         <focus>yes</focus>
+         <position force="no">
+         <x>center</x>
+         <y>center</y>
+         </position>
+         </application>
+         <application class="lollypop">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="spotify">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="rhythmbox">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="vlc*">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="mpv*">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="audacious">
+         <desktop>1</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="chromium">
+         <desktop>2</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="google-chrome">
+         <desktop>2</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="opera">
+         <desktop>2</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="Firefox">
+         <desktop>2</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="Navigator">
+         <desktop>2</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="pcmanfm">
+         <desktop>3</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="dolphin*">
+         <desktop>3</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="nautilus">
+         <desktop>3</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="Thunar">
+         <desktop>3</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="gimp*">
+         <desktop>4</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="inkscape">
+         <desktop>4</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="pinta">
+         <desktop>4</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="gpick">
+         <desktop>4</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="gcolor2">
+         <desktop>4</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="mousepad">
+         <desktop>5</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="Geany">
+         <desktop>5</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="subl3">
+         <desktop>5</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="atom">
+         <desktop>5</desktop>
+         <focus>yes</focus>
+         </application>
+         <application class="mousepad">
+         <desktop>5</desktop>
+         <focus>yes</focus>
+         </application>
+    -->
   </applications>
 </openbox_config>

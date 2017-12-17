@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
 
 # Polybar launcher script written by Nathaniel Maia for use in ArchLabs
-# Will launch bars depending on WM 
+# Will launch bars depending on WM
 # Can also be used to reload openbox session with [--reload] or [-r]
 
+# I reccomend using al-polyzen to set up a session for each wm
+# then ditching this method and adding the following line to your autostart
+#                   sleep 1; al-polybar-session &
 
-# Enter your bar names here (seperated by spaces) eg. BARS=(bar bar1 my-bar)
-# This will be combined with CUR_WM in WMS below  eg. openbox-bar, bspwm-bar1, i3-my-bar etc.
-# by default it is set up in WM-BAR naming format
+
+# Enter your bar names here (seperated by spaces)           eg. BARS=(bar1 bar2...)
+# This will be combined with window manager from WMS below  eg. openbox-bar1, openbox-bar2...
+# by default it is set up in WM-BAR naming format           eg. i3-bar, openbox-bar, bspwm-bar....
 BARS=(bar)
 CONFIG=$HOME/.config/polybar/config
-WMS=(bspwm i3 openbox)
+WMS=(bspwm i3 openbox xfce awesome)
+
+############################################################################################
+
 
 HELP="\nUSAGE:\n\tstart-polybar [OPTIONS]
 \nOPTIONS:\n\t--reload, -r\tIf running in openbox, will reload the session
@@ -25,7 +32,7 @@ for i in ${WMS[@]}; do
         WM=$i && break
     elif [[ "$(awk '{print tolower($0)}' <<< $XDG_CURRENT_DESKTOP)" == "$i" ]]; then
         WM=$i && break
-    fi  
+    fi
 done
 
 # check if passed options
@@ -41,16 +48,10 @@ case "$@" in
         ;;
 esac
 
-
-# bail if tint2 is running
-if [ "$(pidof tint2)" ]; then exit 0; fi
-
-
 # kill running bars
 while [ "$(pidof polybar)" ]; do
     pkill polybar && sleep 0.5
 done
-
 
 # launch bars
 for bar in "${BARS[@]}"; do
@@ -62,4 +63,3 @@ if [ "$(pidof polybar)" ]; then
 else
     echo "Bars Failed to Launch"
 fi
-

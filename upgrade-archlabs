@@ -42,13 +42,11 @@ for i in ${WMS[@]}; do
         WM=$i && break
     elif [[ "$(awk '{print tolower($0)}' <<< $XDG_CURRENT_DESKTOP)" == "$i" ]]; then
         WM=$i && break
-    fi  
+    fi
 done
 
 # Loop until network connected
-net=$(ping -c1 8.8.8.8 2>&1)
-while ! [[ $net >/dev/null ]]; do
-    net=$(ping -c1 8.8.8.8 2>&1)
+while ! [[ $(ping -c1 8.8.8.8) ]]; do
     echo -e "Please Connect to a Network Before Continuing"
     clear; sleep 1
 done
@@ -120,7 +118,7 @@ if [ "${answer,,}" = "${yes,,}" ]; then
     if [[ "$WM" == "i3" ]]; then
         i3-msg restart
     elif [[ "$WM" == "openbox" ]]; then
-        start-polybar --reload > /dev/null 2>&1
+        al-polybar-session -r
     fi
 fi
 

@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
-if [[ $1 = "--toggle" ]] || [[ $1 = "-t" ]]; then
-  if pgrep redshift >/dev/null; then
-    pkill redshift 
-  else
-    redshift-gtk &
-  fi
-  exit 0
-fi
 
 icon=""
+
+if [[ $1 = "--toggle" ]] || [[ $1 = "-t" ]]; then
+    if pgrep redshift >/dev/null; then
+        pkill redshift
+    else
+        redshift-gtk &
+    fi
+    exit 0
+fi
 
 while true; do
     pgrep -x redshift &> /dev/null
@@ -29,4 +30,3 @@ while true; do
     fi
     sleep 2
 done
-

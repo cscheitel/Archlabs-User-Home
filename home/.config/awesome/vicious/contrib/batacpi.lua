@@ -19,33 +19,33 @@ local batacpi = {}
 
 -- {{{ Battery widget type
 local function worker(format)
-    local battery_info  = {}
-    local battery_state = {
-        ["full"] = "↯",
-        ["unknown"] = "⌁",
-        ["charged"] = "↯",
-        ["charging"] = "+",
-        ["discharging"] = "-"
-    }
+  local battery_info  = {}
+  local battery_state = {
+    ["full"] = "↯",
+    ["unknown"] = "⌁",
+    ["charged"] = "↯",
+    ["charging"] = "+",
+    ["discharging"] = "-"
+  }
 
-    -- Get data from acpitool
-    local f = io.popen("acpitool -b")
+  -- Get data from acpitool
+  local f = io.popen("acpitool -b")
 
-    for line in f:lines() do
-        -- Check if the battery is present
-        if string.match(line, "^[%s]+Battery.*") then
-            -- Store state and charge information
-            table.insert(battery_info, (battery_state[string.match(line, "([%a]*),") or "unknown"]))
-            table.insert(battery_info, (tonumber(string.match(line, "([%d]?[%d]?[%d])%.")) or 0))
-            -- Store remaining time information
-            table.insert(battery_info, (string.match(line, "%%,%s(.*)") or "N/A"))
-        else
-            return {battery_state["unknown"], 0, "N/A"}
-        end
+  for line in f:lines() do
+    -- Check if the battery is present
+    if string.match(line, "^[%s]+Battery.*") then
+      -- Store state and charge information
+      table.insert(battery_info, (battery_state[string.match(line, "([%a]*),") or "unknown"]))
+      table.insert(battery_info, (tonumber(string.match(line, "([%d]?[%d]?[%d])%.")) or 0))
+      -- Store remaining time information
+      table.insert(battery_info, (string.match(line, "%%,%s(.*)") or "N/A"))
+    else
+      return {battery_state["unknown"], 0, "N/A"}
     end
-    f:close()
+  end
+  f:close()
 
-    return battery_info
+  return battery_info
 end
 -- }}}
 

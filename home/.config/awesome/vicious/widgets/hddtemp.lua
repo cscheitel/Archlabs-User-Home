@@ -19,21 +19,21 @@ local hddtemp = {}
 
 -- {{{ HDD Temperature widget type
 local function worker(format, warg)
-    -- Fallback to default hddtemp port
-    if warg == nil then warg = 7634 end
+  -- Fallback to default hddtemp port
+  if warg == nil then warg = 7634 end
 
-    local hdd_temp = {} -- Get info from the hddtemp daemon
-    local quoted = helpers.shellquote(warg)
-    local f = io.popen("echo | curl --connect-timeout 1 -fsm 3 telnet://127.0.0.1:"..quoted)
+  local hdd_temp = {} -- Get info from the hddtemp daemon
+  local quoted = helpers.shellquote(warg)
+  local f = io.popen("echo | curl --connect-timeout 1 -fsm 3 telnet://127.0.0.1:"..quoted)
 
-    for line in f:lines() do
-        for d, t in string.gmatch(line, "|([%/%a%d]+)|.-|([%d]+)|[CF]+|") do
-            hdd_temp["{"..d.."}"] = tonumber(t)
-        end
+  for line in f:lines() do
+    for d, t in string.gmatch(line, "|([%/%a%d]+)|.-|([%d]+)|[CF]+|") do
+      hdd_temp["{"..d.."}"] = tonumber(t)
     end
-    f:close()
+  end
+  f:close()
 
-    return hdd_temp
+  return hdd_temp
 end
 -- }}}
 

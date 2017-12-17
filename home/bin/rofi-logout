@@ -7,20 +7,19 @@ question=$(echo " lock| logout| reboot| shutdown" | rofi -sep "|" \
     -color-normal "#2b303b, #8fa1b3, #2b303b, #8fa1b3, #2b303b")
 
 case $question in
-    *lock) 
+    *lock)
         i3lock-fancy
         ;;
-    *logout) 
+    *logout)
         session-logout
         ;;
-    *reboot) 
+    *reboot)
         systemctl reboot
         ;;
-    *shutdown) 
+    *shutdown)
         systemctl poweroff
         ;;
-    *) 
-        :  # do nothing on wrong response
+    *)
+        exit 0  # do nothing on wrong response
         ;;
 esac
-

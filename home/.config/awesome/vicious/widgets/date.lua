@@ -7,8 +7,8 @@
 -- {{{ Grab environment
 local setmetatable = setmetatable
 local os = {
-    date = os.date,
-    time = os.time
+  date = os.date,
+  time = os.time
 }
 -- }}}
 
@@ -20,7 +20,7 @@ local date = {}
 
 -- {{{ Date widget type
 local function worker(format, warg)
-    return os.date(format or nil, warg and os.time()+warg or nil)
+  return os.date(format or nil, warg and os.time()+warg or nil)
 end
 -- }}}
 

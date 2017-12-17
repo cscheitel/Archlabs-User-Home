@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if [ "$(pidof polybar)" ]; then
+# small script to kill polybar if it is running
+# if it isnt running then start it the default session
+if [[ $(pidof polybar) ]]; then
     pkill polybar
 else
-    start-polybar
+    al-polybar-session
 fi
-

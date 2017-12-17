@@ -19,45 +19,45 @@ local mpd = {}
 
 -- {{{ MPD widget type
 local function worker(format, warg)
-    local mpd_state  = {
-        ["{volume}"] = 0,
-        ["{state}"]  = "N/A",
-        ["{Artist}"] = "N/A",
-        ["{Title}"]  = "N/A",
-        ["{Album}"]  = "N/A",
-        ["{Genre}"]  = "N/A",
-        --["{Name}"] = "N/A",
-        --["{file}"] = "N/A",
-    }
+  local mpd_state  = {
+    ["{volume}"] = 0,
+    ["{state}"]  = "N/A",
+    ["{Artist}"] = "N/A",
+    ["{Title}"]  = "N/A",
+    ["{Album}"]  = "N/A",
+    ["{Genre}"]  = "N/A",
+    --["{Name}"] = "N/A",
+    --["{file}"] = "N/A",
+  }
 
-    -- Fallback to MPD defaults
-    local pass = warg and (warg.password or warg[1]) or "\"\""
-    local host = warg and (warg.host or warg[2]) or "127.0.0.1"
-    local port = warg and (warg.port or warg[3]) or "6600"
+  -- Fallback to MPD defaults
+  local pass = warg and (warg.password or warg[1]) or "\"\""
+  local host = warg and (warg.host or warg[2]) or "127.0.0.1"
+  local port = warg and (warg.port or warg[3]) or "6600"
 
-    -- Construct MPD client options
-    local mpdh = "telnet://"..host..":"..port
-    local echo = "echo 'password "..pass.."\nstatus\ncurrentsong\nclose'"
+  -- Construct MPD client options
+  local mpdh = "telnet://"..host..":"..port
+  local echo = "echo 'password "..pass.."\nstatus\ncurrentsong\nclose'"
 
-    -- Get data from MPD server
-    local f = io.popen(echo.." | curl --connect-timeout 1 -fsm 3 "..mpdh)
+  -- Get data from MPD server
+  local f = io.popen(echo.." | curl --connect-timeout 1 -fsm 3 "..mpdh)
 
-    for line in f:lines() do
-        for k, v in string.gmatch(line, "([%w]+):[%s](.*)$") do
-            if     k == "volume" then mpd_state["{"..k.."}"] = v and tonumber(v)
-            elseif k == "state"  then mpd_state["{"..k.."}"] = helpers.capitalize(v)
-            elseif k == "Artist" then mpd_state["{"..k.."}"] = helpers.escape(v)
-            elseif k == "Title"  then mpd_state["{"..k.."}"] = helpers.escape(v)
-            elseif k == "Album"  then mpd_state["{"..k.."}"] = helpers.escape(v)
-            elseif k == "Genre"  then mpd_state["{"..k.."}"] = helpers.escape(v)
-            --elseif k == "Name" then mpd_state["{"..k.."}"] = helpers.escape(v)
-            --elseif k == "file" then mpd_state["{"..k.."}"] = helpers.escape(v)
-            end
-        end
+  for line in f:lines() do
+    for k, v in string.gmatch(line, "([%w]+):[%s](.*)$") do
+      if     k == "volume" then mpd_state["{"..k.."}"] = v and tonumber(v)
+      elseif k == "state"  then mpd_state["{"..k.."}"] = helpers.capitalize(v)
+      elseif k == "Artist" then mpd_state["{"..k.."}"] = helpers.escape(v)
+      elseif k == "Title"  then mpd_state["{"..k.."}"] = helpers.escape(v)
+      elseif k == "Album"  then mpd_state["{"..k.."}"] = helpers.escape(v)
+      elseif k == "Genre"  then mpd_state["{"..k.."}"] = helpers.escape(v)
+        --elseif k == "Name" then mpd_state["{"..k.."}"] = helpers.escape(v)
+        --elseif k == "file" then mpd_state["{"..k.."}"] = helpers.escape(v)
+      end
     end
-    f:close()
+  end
+  f:close()
 
-    return mpd_state
+  return mpd_state
 end
 -- }}}
 

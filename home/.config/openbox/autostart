@@ -8,11 +8,8 @@ numlockx on &
 # restore wallpaper
 nitrogen --restore &
 
-# start tint2 if enabled
-al-tint2-session &
-
-# start polybar if tint2 not enabled (start after al-tint-session)
-sleep 1; start-polybar &
+# start polybar
+sleep 1; al-polybar-session &
 
 # system tray
 sleep 1; trayer --edge bottom --align left --widthtype request --SetDockType false --expand true &
@@ -26,10 +23,7 @@ lxpolkit &
 # Required for xfce settings to work
 xfsettingsd &
 
-# Launch conky if session exists
-sleep 2; al-conky-session &
-
-# set side user dirs shortcuts for file managers
+# set user shortcuts for file managers
 xdg-user-dirs-gtk-update &
 
 $HOME/.config/keypack &

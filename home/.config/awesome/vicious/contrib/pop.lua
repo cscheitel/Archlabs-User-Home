@@ -25,30 +25,30 @@ local pop = {}
 
 -- {{{ POP3 count widget type
 local function worker(format, warg)
-    if not sock_avail or (not warg or #warg ~= 4) then
-        return {"N/A"}
-    end
+  if not sock_avail or (not warg or #warg ~= 4) then
+    return {"N/A"}
+  end
 
-    local host, port = warg[1], tonumber(warg[2])
-    local user, pass = warg[3], warg[4]
+  local host, port = warg[1], tonumber(warg[2])
+  local user, pass = warg[3], warg[4]
 
-    local client = socket.tcp()
-    client:settimeout(3)
-    client:connect(host, port)
-    client:receive("*l")
-    client:send("USER " .. user .. "\r\n")
-    client:receive("*l")
-    client:send("PASS " .. pass .. "\r\n")
-    client:receive("*l")
-    client:send("STAT" .. "\r\n")
-    local response = client:receive("*l")
-    client:close()
+  local client = socket.tcp()
+  client:settimeout(3)
+  client:connect(host, port)
+  client:receive("*l")
+  client:send("USER " .. user .. "\r\n")
+  client:receive("*l")
+  client:send("PASS " .. pass .. "\r\n")
+  client:receive("*l")
+  client:send("STAT" .. "\r\n")
+  local response = client:receive("*l")
+  client:close()
 
-    if response:find("%+OK") then
-        response = response:match("%+OK (%d+)")
-    end
+  if response:find("%+OK") then
+    response = response:match("%+OK (%d+)")
+  end
 
-    return {response}
+  return {response}
 end
 -- }}}
 

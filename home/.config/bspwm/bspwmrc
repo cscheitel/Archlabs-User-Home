@@ -16,12 +16,10 @@ al-compositor --start &
 lxpolkit &
 
 # panel
-al-tint2-session &
-sleep 1; start-polybar &
+sleep 1; al-polybar-session &
 
-
+# Set some bsp specific stuff
 bspc monitor -d I II III IV V VI VII VIII IX X
-
 
 bspc config border_width    3
 bspc config window_gap      12
@@ -37,7 +35,7 @@ bspc config paddingless_monocle  true
 
 bspc config pointer_modifier  mod1
 bspc config click_to_focus    true
-bspc config pointer_action1    move
+bspc config pointer_action1   move
 bspc config pointer_action2   resize_side
 bspc config pointer_action3   resize_corner
 

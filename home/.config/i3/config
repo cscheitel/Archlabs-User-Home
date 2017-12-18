@@ -41,7 +41,7 @@ gaps inner 15
 gaps outer 5
 
 # font
-font pango:Ubuntu 11
+font pango:Roboto 11
 
 
 #### Set
@@ -105,7 +105,7 @@ bindsym Control+space exec --no-startup-id rofi-gorice
 bindsym Mod1+F1 exec --no-startup-id rofi-gorice
 
 # core
-bindsym $Mod+e exec --no-startup-id al-open -edit
+bindsym $Mod+e exec --no-startup-id geany
 bindsym $Mod+t exec exo-open --launch TerminalEmulator
 bindsym $Mod+w exec exo-open --launch WebBrowser
 bindsym $Mod+f exec exo-open --launch FileManager

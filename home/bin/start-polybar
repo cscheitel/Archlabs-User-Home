@@ -5,7 +5,7 @@
 # Can also be used to reload openbox session with [--reload] or [-r]
 
 # I reccomend using al-polyzen to set up a session for each wm
-# then ditching this method and adding the following line to your autostart
+# then ditching this script and adding the following line to your autostart
 #                   sleep 1; al-polybar-session &
 
 

@@ -335,7 +335,7 @@
     </keybind>
     <keybind key="W-e">
       <action name="Execute">
-        <command>al-open -edit</command>
+        <command>geany</command>
       </action>
     </keybind>
     <keybind key="C-A-m">
@@ -372,21 +372,16 @@
     <!-- Logout & Reload -->
     <keybind key="W-x">
       <action name="Execute">
-        <command>exit-openbox</command>
+        <command>oblogout</command>
       </action>
     </keybind>
     <keybind key="C-A-Delete">
       <action name="Execute">
-        <command>exit-openbox</command>
+        <command>oblogout</command>
       </action>
     </keybind>
     <keybind key="W-S-Escape">
       <action name="Exit"/>
-    </keybind>
-    <keybind key="W-S-r">
-      <action name="Execute">
-        <command>start-polybar --reload</command>
-      </action>
     </keybind>
     <keybind key="C-S-BackSpace">
       <action name="Restart"/>
@@ -826,7 +821,7 @@
          <file>/var/lib/openbox/debian-menu.xml</file>
          <file>debian-menu.xml</file> -->
     <file>menu.xml</file>
-    <hideDelay>200</hideDelay>
+    <hideDelay>400</hideDelay>
     <!-- if a press-release lasts longer than this setting (in milliseconds), the
          menu is hidden again -->
     <middle>no</middle>

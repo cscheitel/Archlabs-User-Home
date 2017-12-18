@@ -1,17 +1,8 @@
 #!/usr/bin/env bash
 
-# this script will run polybar at boot
-# and allow toggling via polybar or other means
-# if it is not running and not enabled, enable it then start
-if [ -e "$HOME/.config/.composite_enabled" ] && [ "$(pidof compton)" ]; then
+
+if [ "$(pidof compton)" ]; then
     al-compositor --restart
-elif [ -e "$HOME/.config/.composite_enabled" ]; then
-    al-compositor --start
 else
-    echo "#Compositing enabled" > $HOME/.config/.composite_enabled
-    if [ "$(pidof compton)" ]; then
-        al-compositor --start
-    else
-        al-compositor --restart
-    fi
+    al-compositor --start
 fi

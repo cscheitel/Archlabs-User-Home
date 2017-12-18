@@ -19,7 +19,7 @@
     </item>
     <item label="Text Editor">
       <action name="Execute">
-        <command>al-open -edit</command>
+        <command>geany</command>
       </action>
     </item>
     <separator/>
@@ -198,7 +198,7 @@
     </item>
     <item label="Exit Openbox">
       <action name="Execute">
-        <command>exit-openbox</command>
+        <command>oblogout</command>
       </action>
     </item>
   </menu>

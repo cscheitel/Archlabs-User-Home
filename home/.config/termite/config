@@ -11,11 +11,10 @@ font                = Fantasque Sans Mono 12
 scrollback_lines    = 10000
 search_wrap         = true
 icon_name           = utilities-terminal
-geometry            = 740x500
-scrollback_lines    = 15000
+geometry            = 750x500
 clickable_url       = true
 cursor_blink        = system
-cursor_shape        = ibeam
+cursor_shape        = block
 browser             = exo-open
 filter_unmatched_urls = true
 

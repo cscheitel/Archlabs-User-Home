@@ -8,4 +8,4 @@
 # sleep 1; al-polybar-session &
 
 
-~/.config/polybar/config i3-bar
+/home/liveuser/.config/polybar/config i3-bar

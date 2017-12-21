@@ -4,6 +4,9 @@
 # if this is not run immediately at startup, polybar WILL fail to load
 
 files=($HOME/.config/polybar/config
+       $HOME/.config/polybar/sessions/i3-sessionfile
+       $HOME/.config/polybar/sessions/bspwm-sessionfile
+       $HOME/.config/polybar/sessions/openbox-sessionfile
        $HOME/.config/gtk-3.0/bookmarks
        $HOME/.gorice/templates/i3/data.json
        $HOME/.mozilla/firefox/archlabs.default/prefs.js

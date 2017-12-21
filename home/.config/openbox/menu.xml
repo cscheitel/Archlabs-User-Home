@@ -173,12 +173,12 @@
       </item>
       <item label="Root File Manager">
         <action name="Execute">
-          <command>gksudo thunar</command>
+          <command>gksu thunar</command>
         </action>
       </item>
       <item label="GParted">
         <action name="Execute">
-          <command>gksudo gparted</command>
+          <command>gksu gparted</command>
         </action>
       </item>
     </menu>

@@ -74,8 +74,8 @@ own_window_type = 'desktop',
 
 --Colours
 
-default_color = '#2b303b',
-color1 = '#2b303b',
+default_color = '#8FA1B3',
+color1 = '#8FA1B3',
 
 };
 conky.text = [[

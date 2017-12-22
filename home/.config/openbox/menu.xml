@@ -198,7 +198,7 @@
     </item>
     <item label="Exit Openbox">
       <action name="Execute">
-        <command>oblogout</command>
+        <command>rofi-logout</command>
       </action>
     </item>
   </menu>

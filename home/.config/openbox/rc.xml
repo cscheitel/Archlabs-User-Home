@@ -372,12 +372,12 @@
     <!-- Logout & Reload -->
     <keybind key="W-x">
       <action name="Execute">
-        <command>oblogout</command>
+        <command>rofi-logout</command>
       </action>
     </keybind>
     <keybind key="C-A-Delete">
       <action name="Execute">
-        <command>oblogout</command>
+        <command>rofi-logout</command>
       </action>
     </keybind>
     <keybind key="W-S-Escape">

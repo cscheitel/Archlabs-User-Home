@@ -9,7 +9,8 @@ numlockx on &
 nitrogen --restore &
 
 # start polybar
-sleep 1; al-polybar-session &
+sleep 1; polybar --config=/home/liveuser/.config/polybar/config openbox-bar &
+#sleep 1; al-polybar-session &
 
 # system tray
 sleep 1; trayer --edge bottom --align left --widthtype request --SetDockType false --expand true &

@@ -86,7 +86,6 @@ exec_always --no-startup-id pkill trayer; trayer --edge bottom --align left --he
 exec --no-startup-id xfsettingsd
 exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id al-conky-session
 exec --no-startup-id lxpolkit
 
 ####################################################################################################

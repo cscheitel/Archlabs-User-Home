@@ -1,7 +1,7 @@
 al-compositor --restart
 pkill dunst
 xrdb ~/.Xresources
-start-polybar --reload
+al-polybar-session
 i3-msg restart
 
 sleep 0.5

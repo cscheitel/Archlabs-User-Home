@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# will stop any running polybar instances
-while [ "$(pidof polybar)" ]; do
-    pkill polybar && sleep 0.5
-    echo "Bars stopped..."
-done

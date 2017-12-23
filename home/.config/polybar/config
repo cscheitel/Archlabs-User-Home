@@ -18,7 +18,7 @@ inherit = bar/master
 monitor =
 
 modules-left   = jgmenu config workspaces
-modules-center = window_switch clock 
+modules-center = window_switch clock
 modules-right  = pkg memory temperature coreuse network volume
 
 ; All available modules (some require configuration in modules.conf)
@@ -65,7 +65,7 @@ modules-right  = pkg memory temperature coreuse network volume
 ;     Bspwm Bars
 ;=====================================================
 
-[bar/bsp-bar]
+[bar/bspwm-bar]
 inherit = bar/master
 
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1

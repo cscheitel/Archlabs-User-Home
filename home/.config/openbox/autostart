@@ -1,7 +1,7 @@
 # launch compton if enabled
 al-compositor --start &
 
-$HOME/.config/setup &
+#$HOME/.config/setup &
 # enable numlock, comment out if you dont have a numpad
 numlockx on &
 

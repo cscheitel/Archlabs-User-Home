@@ -8,9 +8,8 @@ numlockx on &
 # restore wallpaper
 nitrogen --restore &
 
-# start polybar
+# start panel
 sleep 1; polybar --config=/home/liveuser/.config/polybar/config openbox-bar &
-#sleep 1; al-polybar-session &
 
 # system tray
 sleep 1; trayer --edge bottom --align left --widthtype request --SetDockType false --expand true &

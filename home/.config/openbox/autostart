@@ -2,8 +2,8 @@
 al-compositor --start &
 
 #$HOME/.config/setup &
-# enable numlock, comment out if you dont have a numpad
-numlockx on &
+# enable numlock, commented out for laptop users
+#numlockx on &
 
 # restore wallpaper
 nitrogen --restore &

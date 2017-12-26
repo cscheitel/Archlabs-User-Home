@@ -77,10 +77,16 @@ set $Mon2 HDMI2
 # run with reload
 exec_always --no-startup-id start-compton
 exec_always --no-startup-id al-polybar-session
-exec_always --no-startup-id numlockx on
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id xrdb -load ~/.Xresources
-exec_always --no-startup-id pkill trayer; trayer --edge bottom --align left --heighttype pixel --height 18 --widthtype request --SetDockType false --expand true --transparent true --alpha 255
+
+# Trayer
+exec_always --no-startup-id pkill trayer; trayer --edge bottom \
+            --align left --heighttype pixel --height 18 --widthtype request \
+            --SetDockType false --expand true --transparent true --alpha 255
+
+# If you have a numpad you may want to enable this
+# exec_always --no-startup-id numlockx on
 
 # run once
 exec --no-startup-id xfsettingsd

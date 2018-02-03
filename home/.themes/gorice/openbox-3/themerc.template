@@ -65,8 +65,9 @@ window.active.button.hover.bg: flat solid
 window.active.button.hover.bg.color: {{.Data.terminal_background}}
 window.active.button.hover.image.color: {{index .Data.terminal_colors 4}}
 
-#window.active.button.toggled.bg: {{index .Data.terminal_colors 4}}
-#window.active.button.toggled.image.color: {{.Data.terminal_foreground}}
+window.active.button.toggled.bg: flat solid
+window.active.button.toggled.bg.color: {{.Data.terminal_background}}
+window.active.button.toggled.image.color: {{.Data.terminal_foreground}}
 
 # Inactive window
 window.inactive.border.color: {{.Data.terminal_background}}
